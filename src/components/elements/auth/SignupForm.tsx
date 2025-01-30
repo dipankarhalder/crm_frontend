@@ -86,7 +86,7 @@ export const SignupForm = () => {
                         <RadioGroupItem value={user.value} id={user.value} />
                         <label
                           htmlFor={user.value}
-                          className="font-medium text-xs ml-1"
+                          className="font-medium text-sm text-slate-500 ml-1"
                         >
                           {user.title}
                         </label>
