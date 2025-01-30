@@ -1,3 +1,12 @@
+import { AuthLayout } from "@/layouts/AuthLayout";
+import { SignupForm } from "@/components/elements/auth/SignupForm";
+
 export const SignupPage = () => {
-  return <div>sfgkuhsgr</div>;
+  return (
+    <AuthLayout heading={"Create your account"}>
+      <div className="grid gap-6">
+        <SignupForm />
+      </div>
+    </AuthLayout>
+  );
 };
