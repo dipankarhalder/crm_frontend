@@ -29,14 +29,23 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
+import {
+  ChevronsRight,
+  ChevronRight,
+  ChevronLeft,
+  ChevronsLeft,
+} from "lucide-react";
+
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  heading: string;
 }
 
 export function CustomerDataTable<TData, TValue>({
   columns,
   data,
+  heading,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -63,7 +72,7 @@ export function CustomerDataTable<TData, TValue>({
     <div className="w-full">
       <div className="flex justify-between items-center py-4 w-full">
         <h1 className="font-semibold mr-8 text-base text-black">
-          Manage list of Customers
+          {heading}
           <Badge className="ml-4 bg-slate-300 text-black">
             {table.getFilteredRowModel().rows.length} customers
           </Badge>
@@ -187,8 +196,7 @@ export function CustomerDataTable<TData, TValue>({
             onClick={() => table.setPageIndex(0)}
             disabled={!table.getCanPreviousPage()}
           >
-            <span className="sr-only">Go to first page</span>
-            {/* <HiOutlineChevronDoubleLeft className="h-4 w-4" /> */}
+            <ChevronsLeft className="h-4 w-4" />
           </Button>
           <Button
             variant="outline"
@@ -196,8 +204,7 @@ export function CustomerDataTable<TData, TValue>({
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
           >
-            <span className="sr-only">Go to previous page</span>
-            {/* <HiOutlineChevronLeft className="h-4 w-4" /> */}
+            <ChevronLeft className="h-4 w-4" />
           </Button>
           <Button
             variant="outline"
@@ -205,8 +212,7 @@ export function CustomerDataTable<TData, TValue>({
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
           >
-            <span className="sr-only">Go to next page</span>
-            {/* <HiOutlineChevronRight className="h-4 w-4" /> */}
+            <ChevronRight className="h-4 w-4" />
           </Button>
           <Button
             variant="outline"
@@ -214,8 +220,7 @@ export function CustomerDataTable<TData, TValue>({
             onClick={() => table.setPageIndex(table.getPageCount() - 1)}
             disabled={!table.getCanNextPage()}
           >
-            <span className="sr-only">Go to last page</span>
-            {/* <HiOutlineChevronDoubleRight className="h-4 w-4" /> */}
+            <ChevronsRight className="h-4 w-4" />
           </Button>
         </div>
       </div>
