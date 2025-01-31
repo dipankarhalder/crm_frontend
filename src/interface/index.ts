@@ -59,3 +59,13 @@ export interface ITeams {
     plan: string;
   }[];
 }
+
+export type IUserInfo = {
+  id: string;
+  name: string;
+  eventDate: string;
+  activeUser: boolean;
+  amount: number;
+  email: string;
+  phoneNo: string;
+};
