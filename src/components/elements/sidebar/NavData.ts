@@ -8,6 +8,7 @@ import {
   CalendarFold,
   CircleCheckBig,
 } from "lucide-react";
+import { applinks } from "@/router/links";
 
 export const navData = {
   user: {
@@ -25,27 +26,27 @@ export const navData = {
   navMain: [
     {
       title: "Dashboard",
-      url: "dashboard",
+      url: applinks.dashboard,
       icon: House,
     },
     {
       title: "Vendors",
-      url: "vendors",
+      url: applinks.vendors,
       icon: Clapperboard,
     },
     {
       title: "Customers",
-      url: "customers",
+      url: applinks.customers,
       icon: CircleUser,
     },
     {
       title: "Calendar",
-      url: "#",
+      url: applinks.calendar,
       icon: CalendarFold,
     },
     {
       title: "Billing",
-      url: "#",
+      url: applinks.billing,
       icon: Ticket,
     },
   ],
