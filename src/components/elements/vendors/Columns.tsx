@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { ColumnDef } from "@tanstack/react-table";
 import { ChevronsUpDown, Ellipsis, Eye, PenTool, Trash2 } from "lucide-react";
 
@@ -166,22 +167,31 @@ export const vendorsColumns: ColumnDef<IGameInfo>[] = [
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="h-8 w-8 p-0">
-                <span className="sr-only">Open menu</span>
                 <Ellipsis className="h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuItem className="flex items-center font-semibold text-xs">
-                <Eye />
-                View Details
+                <Link
+                  to={"/"}
+                  className="flex items-center font-semibold text-xs"
+                >
+                  <Eye className="mr-2" />
+                  View Details
+                </Link>
               </DropdownMenuItem>
               <DropdownMenuItem className="flex items-center font-semibold text-xs">
-                <PenTool />
-                Edit Information
+                <Link
+                  to={"/"}
+                  className="flex items-center font-semibold text-xs"
+                >
+                  <PenTool className="mr-2" />
+                  Edit Information
+                </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem className="flex items-center font-semibold text-xs">
+              <DropdownMenuItem className="flex items-center font-semibold text-xs text-red-500 focus:text-red-500">
                 <Trash2 />
-                Delete Customer
+                Delete Vendor
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
