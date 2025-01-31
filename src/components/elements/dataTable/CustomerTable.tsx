@@ -1,4 +1,12 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import {
+  ChevronsRight,
+  ChevronRight,
+  ChevronLeft,
+  ChevronsLeft,
+  CirclePlus,
+} from "lucide-react";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -28,24 +36,20 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-
-import {
-  ChevronsRight,
-  ChevronRight,
-  ChevronLeft,
-  ChevronsLeft,
-} from "lucide-react";
+import { applinks } from "@/router/links";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   heading: string;
+  filterData: string;
 }
 
 export function CustomerDataTable<TData, TValue>({
   columns,
   data,
   heading,
+  filterData,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -79,13 +83,24 @@ export function CustomerDataTable<TData, TValue>({
         </h1>
         <div className="flex items-center">
           <Input
-            placeholder="Filter emails..."
-            value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
+            placeholder={`Filter ${filterData}...`}
+            value={
+              (table.getColumn(filterData)?.getFilterValue() as string) ?? ""
+            }
             onChange={(event) =>
               table.getColumn("email")?.setFilterValue(event.target.value)
             }
-            className="w-[480px] shadow-sm"
+            className="w-[460px] shadow-sm"
           />
+        </div>
+        <div>
+          <Link
+            to={applinks.addCustomer}
+            className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
+          >
+            <CirclePlus />
+            Add Item
+          </Link>
         </div>
       </div>
       <div className="rounded-md border">
