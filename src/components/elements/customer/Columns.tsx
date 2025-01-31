@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import { ColumnDef } from "@tanstack/react-table";
 import { ChevronsUpDown, Ellipsis, Eye, PenTool, Trash2 } from "lucide-react";
 
-import { IUserInfo } from "@/interface";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,6 +10,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { IUserInfo } from "@/interface";
 
 export const customerColumns: ColumnDef<IUserInfo>[] = [
   {
@@ -132,8 +132,6 @@ export const customerColumns: ColumnDef<IUserInfo>[] = [
     id: "actions",
     enableHiding: false,
     cell: ({ row }) => {
-      const name = row.getValue("name");
-      console.log(name);
       return (
         <div className="text-right font-medium">
           <DropdownMenu>
@@ -145,7 +143,7 @@ export const customerColumns: ColumnDef<IUserInfo>[] = [
             <DropdownMenuContent align="end">
               <DropdownMenuItem>
                 <Link
-                  to={"/"}
+                  to={`view/${row.original.id}`}
                   className="flex items-center font-semibold text-xs"
                 >
                   <Eye className="mr-2" />
@@ -154,7 +152,7 @@ export const customerColumns: ColumnDef<IUserInfo>[] = [
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <Link
-                  to={"/"}
+                  to={`edit/${row.original.id}`}
                   className="flex items-center font-semibold text-xs"
                 >
                   <PenTool className="mr-2" />

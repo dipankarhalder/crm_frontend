@@ -16,6 +16,24 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { AppSidebar } from "@/components/elements/sidebar/AppSidebar";
 
+function getPageName(url: string) {
+  const page = url
+    .replace(/^\/+/, "")
+    .replace(/^./, (str) => str.toUpperCase());
+
+  if (page.startsWith("Customers")) {
+    return "Customers";
+  } else if (page.startsWith("Vendors")) {
+    return "Vendors";
+  } else if (page.startsWith("Calendar")) {
+    return "Calendar";
+  } else if (page.startsWith("Billing")) {
+    return "Billing";
+  }
+
+  return "Unknown Page";
+}
+
 export const MainLayout = () => {
   const { user } = useAuth();
   const location = useLocation();
@@ -43,11 +61,19 @@ export const MainLayout = () => {
                   <BreadcrumbSeparator className="hidden md:block" />
                   <BreadcrumbItem>
                     <BreadcrumbPage className="text-xs">
-                      {location.pathname
-                        .replace(/^\/+/, "")
-                        .replace(/^./, (str) => str.toUpperCase())}
+                      {getPageName(location.pathname)}
                     </BreadcrumbPage>
                   </BreadcrumbItem>
+                  {/* {location.key && (
+                    <>
+                      <BreadcrumbSeparator className="hidden md:block" />
+                      <BreadcrumbItem>
+                        <BreadcrumbPage className="text-xs">
+                          {location.key}
+                        </BreadcrumbPage>
+                      </BreadcrumbItem>
+                    </>
+                  )} */}
                 </BreadcrumbList>
               </Breadcrumb>
             </div>
