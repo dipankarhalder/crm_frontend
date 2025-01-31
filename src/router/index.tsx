@@ -11,6 +11,8 @@ import { SignupPage } from "@/pages/auth/SignupPage";
 import { DashboardPage } from "@/pages/apps/DashboardPage";
 import { CustomersPage } from "@/pages/apps/CustomersPage";
 import { VendorsPage } from "@/pages/apps/VendorsPage";
+import { CalendarPage } from "@/pages/apps/CalendarPage";
+import { BillingsPage } from "@/pages/apps/BillingsPage";
 
 export const router = createBrowserRouter([
   {
@@ -32,16 +34,24 @@ export const router = createBrowserRouter([
     element: <MainLayout />,
     children: [
       {
-        path: "dashboard",
+        path: applinks.dashboard,
         element: <DashboardPage />,
       },
       {
-        path: "customers",
+        path: applinks.customers,
         element: <CustomersPage />,
       },
       {
-        path: "vendors",
+        path: applinks.vendors,
         element: <VendorsPage />,
+      },
+      {
+        path: applinks.calendar,
+        element: <CalendarPage />,
+      },
+      {
+        path: applinks.billing,
+        element: <BillingsPage />,
       },
     ],
   },
