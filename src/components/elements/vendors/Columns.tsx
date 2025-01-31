@@ -1,9 +1,10 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { ChevronsUpDown, Ellipsis, Eye, PenTool, Trash2 } from "lucide-react";
 
-import { IUserInfo } from "@/interface";
+import { IGameInfo } from "@/interface";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,7 +12,13 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-export const customerColumns: ColumnDef<IUserInfo>[] = [
+function getInitials(name: string) {
+  const words = name.split(" ");
+  const initials = words.map((word) => word.charAt(0).toUpperCase()).join("");
+  return initials;
+}
+
+export const vendorsColumns: ColumnDef<IGameInfo>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -35,65 +42,88 @@ export const customerColumns: ColumnDef<IUserInfo>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "name",
+    accessorKey: "game_name",
     header: ({ column }) => {
       return (
         <span
           className="flex items-center cursor-pointer"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Name
+          Game name
           <ChevronsUpDown className="ml-2 h-4 w-4" />
         </span>
       );
     },
-    cell: ({ row }) => (
-      <div className="capitalize font-semibold">{row.getValue("name")}</div>
-    ),
-  },
-  {
-    accessorKey: "email",
-    header: ({ column }) => {
-      return (
-        <span
-          className="flex items-center cursor-pointer"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Email
-          <ChevronsUpDown className="ml-2 h-4 w-4" />
-        </span>
-      );
-    },
-    cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
-  },
-  {
-    accessorKey: "phoneNo",
-    header: "Phone no.",
-    cell: ({ row }) => (
-      <div className="capitalize font-semibold">{row.getValue("phoneNo")}</div>
-    ),
-  },
-  {
-    accessorKey: "eventDate",
-    header: "Event Date",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("eventDate")}</div>
-    ),
-  },
-  {
-    accessorKey: "amount",
-    header: () => <div className="text-right">Amount</div>,
     cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("amount"));
+      const initials = getInitials(row.getValue("game_name"));
+      return (
+        <div className="flex items-center">
+          <Avatar className="mr-3">
+            <AvatarFallback className="font-semibold text-xs">
+              {initials}
+            </AvatarFallback>
+          </Avatar>
+          <div className="capitalize font-semibold">
+            {row.getValue("game_name")}
+          </div>
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: "game_id",
+    header: "Game ID",
+    cell: ({ row }) => (
+      <div className="capitalize font-semibold">{row.getValue("game_id")}</div>
+    ),
+  },
+  {
+    accessorKey: "client_id",
+    header: "Client ID",
+    cell: ({ row }) => (
+      <div className="capitalize font-semibold">
+        {row.getValue("client_id")}
+      </div>
+    ),
+  },
+  {
+    accessorKey: "genre",
+    header: ({ column }) => {
+      return (
+        <span
+          className="flex items-center cursor-pointer"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Genre
+          <ChevronsUpDown className="ml-2 h-4 w-4" />
+        </span>
+      );
+    },
+    cell: ({ row }) => (
+      <div className="capitalize">{row.getValue("genre")}</div>
+    ),
+  },
+  {
+    accessorKey: "create_date",
+    header: "Create Date",
+    cell: ({ row }) => (
+      <div className="capitalize">{row.getValue("create_date")}</div>
+    ),
+  },
+  {
+    accessorKey: "bundle_price",
+    header: () => <div className="text-left">Wallet amount</div>,
+    cell: ({ row }) => {
+      const amount = parseFloat(row.getValue("bundle_price"));
       const formatted = new Intl.NumberFormat("en-US", {
         style: "currency",
         currency: "USD",
       }).format(amount);
-      return <div className="text-right font-semibold">{formatted}</div>;
+      return <div className="font-semibold">{formatted}</div>;
     },
   },
   {
-    accessorKey: "activeUser",
+    accessorKey: "active_status",
     header: ({ column }) => {
       return (
         <span
@@ -106,23 +136,23 @@ export const customerColumns: ColumnDef<IUserInfo>[] = [
       );
     },
     cell: ({ row }) => {
-      const emailVerify = row.getValue("activeUser")
+      const verifyStatus = row.getValue("active_status")
         ? "Verified"
         : "Not verified";
       return (
         <div
           className={`${
-            emailVerify === "Verified"
+            verifyStatus === "Verified"
               ? "bg-green-50 text-green-700"
               : "bg-red-50 text-red-700"
           } inline-flex items-center rounded-md px-2 py-1 text-xs font-semibold text-foreground`}
         >
           <span
             className={`${
-              emailVerify === "Verified" ? "bg-green-700" : "bg-red-700"
+              verifyStatus === "Verified" ? "bg-green-700" : "bg-red-700"
             } h-[6px] w-[6px] rounded-full mr-[6px]`}
           ></span>
-          {emailVerify}
+          {verifyStatus}
         </div>
       );
     },
