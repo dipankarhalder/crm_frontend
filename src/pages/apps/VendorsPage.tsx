@@ -9,7 +9,7 @@ export const VendorsPage = () => {
         columns={vendorsColumns}
         data={vendorsData}
         heading={"Manage list of vendors"}
-        filterData={"game_name"}
+        filterData={"name"}
       />
     </div>
   );

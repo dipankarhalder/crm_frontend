@@ -1,5 +1,5 @@
 import {
-  Clapperboard,
+  Combine,
   Baby,
   Ticket,
   CircleUser,
@@ -30,9 +30,9 @@ export const navData = {
       icon: House,
     },
     {
-      title: "Vendors",
+      title: "Collaborator",
       url: applinks.vendors,
-      icon: Clapperboard,
+      icon: Combine,
     },
     {
       title: "Customers",

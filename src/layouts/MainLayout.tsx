@@ -23,8 +23,8 @@ function getPageName(url: string) {
 
   if (page.startsWith("Customers")) {
     return "Customers";
-  } else if (page.startsWith("Vendors")) {
-    return "Vendors";
+  } else if (page.startsWith("Collaborator")) {
+    return "Collaborator";
   } else if (page.startsWith("Calendar")) {
     return "Calendar";
   } else if (page.startsWith("Billing")) {
