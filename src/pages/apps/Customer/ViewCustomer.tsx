@@ -1,30 +1,21 @@
 import { Link, useParams } from "react-router";
+import { customerData } from "@/components/elements/dataTable/Cdata";
+
+function getInitials(name: string) {
+  const words = name.split(" ");
+  const initials = words.map((word) => word.charAt(0).toUpperCase()).join("");
+  return initials;
+}
 
 export const ViewCustomer = () => {
   const params = useParams();
-  console.log(params);
-
-  const userInfo = {
-    name: "Monserrat Garcia",
-    eventDate: "1992-03-29",
-    activeUser: true,
-    amount: 242,
-    email: "Abe45@gmail.com",
-    phoneNo: "+1-555-5678",
-    address: {
-      location: "151, 1st B Main Road",
-      block: "Koramangala 8th Block",
-      city: "Bengaluru",
-      state: "Karnataka",
-      pin: "560095",
-    },
-  };
+  const foundUser = customerData.find((u) => u.id === params.id);
 
   const projectLists = [
     {
       name: "abc wedding ceremony",
       price: 25000,
-      date: "1992-13-29",
+      date: "1992-10-29",
       paid: 25000,
       pending: 0,
       status: "Completed",
@@ -70,57 +61,45 @@ export const ViewCustomer = () => {
           Personal information
         </p>
         <div className="flex flex-col border border-slate-300 mb-10 w-full rounded-md overflow-hidden">
-          <div className="flex justify-between items-start py-5 px-6">
-            <div className="flex gap-6">
-              <div>
-                <span className="flex w-[80px] h-[80px] bg-blue-200 text-blue-800 items-center justify-center text-2xl font-bold rounded-full">
-                  MG
-                </span>
+          {foundUser && (
+            <>
+              <div className="flex justify-between items-start py-5 px-6">
+                <div className="flex gap-6">
+                  <div>
+                    <span className="flex w-[80px] h-[80px] bg-blue-200 text-blue-800 items-center justify-center text-2xl font-bold rounded-full">
+                      {getInitials(foundUser.name)}
+                    </span>
+                  </div>
+                  <div className="flex flex-col">
+                    <h1 className="font-semibold text-base text-black mb-3">
+                      {foundUser.name}
+                    </h1>
+                    <p className="text-xs font-normal mb-1">
+                      Email:{" "}
+                      <span className="text-sm ml-2">{foundUser.email}</span>
+                    </p>
+                    <p className="text-xs font-normal">
+                      Phone:{" "}
+                      <span className="text-sm ml-2">{foundUser.phone}</span>
+                    </p>
+                  </div>
+                </div>
               </div>
-              <div className="flex flex-col">
-                <h1 className="font-semibold text-base text-black mb-3">
-                  {userInfo.name}
-                </h1>
-                <p className="text-xs font-normal mb-1">
-                  Email: <span className="text-sm">{userInfo.email}</span>
-                </p>
-                <p className="text-xs font-normal">
-                  Phone no. <span className="text-sm">{userInfo.phoneNo}</span>
-                </p>
+              <div className="flex bg-slate-100 py-4 px-6">
+                <div className="w-[103px]">
+                  <h6 className="text-sm font-medium mb-1">Address:</h6>
+                </div>
+                <div>
+                  <p className="text-xs font-medium mb-1">
+                    {foundUser.address.location}, {foundUser.address.city},
+                  </p>
+                  <p className="text-xs font-medium">
+                    {foundUser.address.state} - {foundUser.address.pin}.
+                  </p>
+                </div>
               </div>
-            </div>
-            <div className="flex gap-2 items-center">
-              <p className="text-xs font-normal">Active Status: </p>
-              <div
-                className={`${
-                  userInfo.activeUser
-                    ? "bg-green-100 text-green-700"
-                    : "bg-red-100 text-red-700"
-                } inline-flex items-center w-auto rounded-md px-2 py-1 text-xs font-semibold text-foreground`}
-              >
-                <span
-                  className={`${
-                    userInfo.activeUser ? "bg-green-700" : "bg-red-700"
-                  } h-[8px] w-[8px] rounded-full mr-[6px]`}
-                ></span>
-                {userInfo.activeUser ? "True" : "false"}
-              </div>
-            </div>
-          </div>
-          <div className="flex bg-slate-100 py-4 px-6">
-            <div className="w-[103px]">
-              <h6 className="text-sm font-medium mb-1">Address:</h6>
-            </div>
-            <div>
-              <p className="text-xs font-medium mb-1">
-                {userInfo.address.location}, {userInfo.address.block},
-              </p>
-              <p className="text-xs font-medium mb-1">
-                {userInfo.address.city}, {userInfo.address.state} -{" "}
-                {userInfo.address.pin}.
-              </p>
-            </div>
-          </div>
+            </>
+          )}
         </div>
         <p className="text-xs mb-2 font-medium text-slate-500">
           List of events information

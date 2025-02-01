@@ -68,65 +68,20 @@ export const customerColumns: ColumnDef<IUserInfo>[] = [
     cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
   },
   {
-    accessorKey: "phoneNo",
+    accessorKey: "phone",
     header: "Phone no.",
     cell: ({ row }) => (
-      <div className="capitalize font-semibold">{row.getValue("phoneNo")}</div>
+      <div className="capitalize font-semibold">{row.getValue("phone")}</div>
     ),
   },
   {
-    accessorKey: "eventDate",
-    header: "Event Date",
+    header: "Address",
     cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("eventDate")}</div>
+      <div className="capitalize font-semibold">
+        {row.original.address.location}, {row.original.address.state} -{" "}
+        {row.original.address.pin}
+      </div>
     ),
-  },
-  {
-    accessorKey: "amount",
-    header: () => <div className="text-right">Amount</div>,
-    cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("amount"));
-      const formatted = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-      }).format(amount);
-      return <div className="text-right font-semibold">{formatted}</div>;
-    },
-  },
-  {
-    accessorKey: "activeUser",
-    header: ({ column }) => {
-      return (
-        <span
-          className="flex items-center cursor-pointer"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Status
-          <ChevronsUpDown className="ml-2 h-4 w-4" />
-        </span>
-      );
-    },
-    cell: ({ row }) => {
-      const emailVerify = row.getValue("activeUser")
-        ? "Verified"
-        : "Not verified";
-      return (
-        <div
-          className={`${
-            emailVerify === "Verified"
-              ? "bg-green-50 text-green-700"
-              : "bg-red-50 text-red-700"
-          } inline-flex items-center rounded-md px-2 py-1 text-xs font-semibold text-foreground`}
-        >
-          <span
-            className={`${
-              emailVerify === "Verified" ? "bg-green-700" : "bg-red-700"
-            } h-[6px] w-[6px] rounded-full mr-[6px]`}
-          ></span>
-          {emailVerify}
-        </div>
-      );
-    },
   },
   {
     id: "actions",
