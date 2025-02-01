@@ -63,20 +63,20 @@ export interface ITeams {
 export type IUserInfo = {
   id: string;
   name: string;
-  eventDate: string;
-  activeUser: boolean;
-  amount: number;
   email: string;
-  phoneNo: string;
+  phone: string;
+  address: {
+    location: string;
+    city: string;
+    state: string;
+    pin: string;
+  };
 };
 
-export type IGameInfo = {
-  game_name: string;
-  game_id: string;
-  client_id: string;
-  create_date: string;
-  active_status: boolean;
-  genre: string;
-  image_link: string;
-  bundle_price: number;
+export type IVendorInfo = {
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
+  type: string;
 };

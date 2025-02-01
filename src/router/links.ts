@@ -10,7 +10,7 @@ export const applinks = {
   editCustomer: ":id",
 
   // vendors
-  vendors: "vendors",
+  vendors: "collaborator",
   calendar: "calendar",
   billing: "billing",
 };
