@@ -75,7 +75,7 @@ export function CustomerDataTable<TData, TValue>({
   return (
     <div className="w-full">
       <div className="flex justify-between items-center py-4 w-full">
-        <h1 className="font-semibold mr-8 text-base text-black">
+        <h1 className="font-medium mr-8 text-base text-black">
           {heading}
           <Badge className="ml-4 bg-slate-300 text-black">
             {table.getFilteredRowModel().rows.length} customers
