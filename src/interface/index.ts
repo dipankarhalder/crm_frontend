@@ -20,6 +20,10 @@ export interface IUserRequest {
   password: string;
 }
 
+export interface IPageLink {
+  pagename: string;
+}
+
 export interface IMainNav {
   items: {
     title: string;
