@@ -1,5 +1,6 @@
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
+import { Header } from "@/components/elements/header";
 
 const events = [
   { title: "All Day Event", start: getDate("YEAR-MONTH-09T16:00:00+00:00") },
@@ -44,26 +45,31 @@ function getDate(dayString: string) {
 
 export const CalendarPage = () => {
   return (
-    <div className="flex w-full">
-      <div className="w-full">
-        <div className="flex justify-between items-center py-4 w-full">
-          <h1 className="font-semibold mr-8 text-base text-black">Calendar</h1>
-        </div>
-        <div>
-          <FullCalendar
-            initialView="dayGridMonth"
-            firstDay={1}
-            headerToolbar={{
-              left: "prev,next today",
-              center: "title",
-              right: "dayGridMonth,timeGridWeek,timeGridDay",
-            }}
-            themeSystem="standard"
-            plugins={[dayGridPlugin]}
-            events={events}
-          />
+    <>
+      <Header pagename="Calendar" />
+      <div className="flex w-full px-6 pt-2">
+        <div className="w-full">
+          <div className="flex justify-between items-center py-4 w-full">
+            <h1 className="font-semibold mr-8 text-base text-black">
+              Manage Events
+            </h1>
+          </div>
+          <div>
+            <FullCalendar
+              initialView="dayGridMonth"
+              firstDay={1}
+              headerToolbar={{
+                left: "prev,next today",
+                center: "title",
+                right: "dayGridMonth,timeGridWeek,timeGridDay",
+              }}
+              themeSystem="standard"
+              plugins={[dayGridPlugin]}
+              events={events}
+            />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };

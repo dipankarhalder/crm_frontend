@@ -1,9 +1,13 @@
 import { Outlet } from "react-router-dom";
+import { Header } from "@/components/elements/header";
 
 export const CustomersPage = () => {
   return (
-    <div className="flex w-full">
-      <Outlet />
-    </div>
+    <>
+      <Header pagename="Customers" />
+      <div className="flex w-full px-6 pt-2">
+        <Outlet />
+      </div>
+    </>
   );
 };

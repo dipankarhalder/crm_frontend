@@ -7,7 +7,7 @@ export const ListCustomer = () => {
     <CustomerDataTable
       columns={customerColumns}
       data={customerData}
-      heading={"Manage list of customers"}
+      heading={"Manage list of Customers"}
       filterData={"email"}
     />
   );
