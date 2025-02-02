@@ -1,12 +1,11 @@
-import { Baby } from "lucide-react";
+import logo from "../../../assets/logo.png";
 
 export const AuthLogo = () => {
   return (
     <div className="flex justify-center items-center mb-4">
-      <span className="flex justify-center items-center w-[40px] h-[40px] bg-indigo-600 rounded-full">
-        <Baby size={28} className="text-white" />
+      <span className="flex justify-center items-center w-[120px] h-[120px]">
+        <img src={logo} alt="Drishtikon" />
       </span>
-      <p className="ml-2 font-bold text-3xl text-indigo-600">Pushify</p>
     </div>
   );
 };

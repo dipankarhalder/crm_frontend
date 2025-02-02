@@ -1,9 +1,9 @@
 import {
   Combine,
-  Baby,
   Ticket,
   CircleUser,
   Box,
+  Baby,
   House,
   CalendarFold,
   CircleCheckBig,
@@ -18,9 +18,9 @@ export const navData = {
   },
   teams: [
     {
-      name: "CRM Projects.",
+      name: "Drishtikon",
       logo: Baby,
-      plan: "Cool planers",
+      plan: "Task Planers",
     },
   ],
   navMain: [
@@ -30,7 +30,7 @@ export const navData = {
       icon: House,
     },
     {
-      title: "Collaborator",
+      title: "Collaborators",
       url: applinks.vendors,
       icon: Combine,
     },
@@ -45,7 +45,7 @@ export const navData = {
       icon: CalendarFold,
     },
     {
-      title: "Billing",
+      title: "Billings",
       url: applinks.billing,
       icon: Ticket,
     },
