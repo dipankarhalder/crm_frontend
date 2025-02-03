@@ -8,9 +8,6 @@ export const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    // You can add custom logic to add headers if needed
-    // For example, adding an authorization header (if you were using tokens, which you're not in this case)
-    // config.headers['Authorization'] = `Bearer ${yourToken}`;
     return config;
   },
   (error) => {
@@ -27,7 +24,6 @@ axiosInstance.interceptors.response.use(
   },
   async (error) => {
     if (error.response && error.response.status === 401) {
-      console.error("Session expired or not authenticated");
       window.location.href = "/";
     }
     return Promise.reject(error);

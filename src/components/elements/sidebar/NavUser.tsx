@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { BadgeCheck, ChevronsUpDown, LogOut } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -15,8 +16,12 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
+import { useToast } from "@/hooks/use-toast";
 import { ISideUser } from "@/interface";
+import { applinks } from "@/router/links";
+import { useAuthStore } from "@/store/authStore";
 import { useProfileStore } from "@/store/profileStore";
+import { logoutUser } from "@/services/auth.services";
 
 function getInitials(name: string) {
   const words = name.split(" ");
@@ -26,7 +31,19 @@ function getInitials(name: string) {
 
 export function NavUser({ user }: ISideUser) {
   const { isMobile } = useSidebar();
+  const navigate = useNavigate();
+  const { toast } = useToast();
+  const { logout } = useAuthStore();
   const { profile } = useProfileStore();
+
+  const handleLogout = async () => {
+    const res = await logoutUser();
+    if (res.status === 200) {
+      toast({ title: res.message, variant: "success" });
+      logout();
+      navigate(applinks.login);
+    }
+  };
 
   return (
     <SidebarMenu>
@@ -84,12 +101,15 @@ export function NavUser({ user }: ISideUser) {
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
+              <DropdownMenuItem className="cursor-pointer">
                 <BadgeCheck />
                 Account
               </DropdownMenuItem>
             </DropdownMenuGroup>
-            <DropdownMenuItem>
+            <DropdownMenuItem
+              className="cursor-pointer"
+              onClick={() => handleLogout()}
+            >
               <LogOut />
               Log out
             </DropdownMenuItem>
