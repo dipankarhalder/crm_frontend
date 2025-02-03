@@ -8,3 +8,4 @@ export const logoutService = `${v1}/auth/signout`;
 
 // profile
 export const profileMeService = `${v1}/profile/me`;
+export const profilesService = `${v1}/profile`;
