@@ -20,7 +20,7 @@ axiosInstance.interceptors.request.use(
 
 axiosInstance.interceptors.response.use(
   (response) => {
-    if (response.data.code !== 200) {
+    if (response.status !== 200) {
       return Promise.reject(response.data);
     }
     return response;
