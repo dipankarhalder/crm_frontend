@@ -1,13 +1,12 @@
-import { Outlet, Navigate, useLocation } from "react-router-dom";
-
-import { useAuth } from "@/hooks/use-auth";
+import { Outlet, useLocation, Navigate } from "react-router-dom";
 import { AuthLogo } from "@/components/elements/auth/AuthLogo";
 
 export const AuthLayout = () => {
-  const { user } = useAuth();
   const location = useLocation();
+  const isToken = localStorage && localStorage.getItem("token");
+  const isLogin = localStorage && localStorage.getItem("isLogin");
 
-  if (user) {
+  if (isToken && isLogin) {
     return <Navigate to="/dashboard" />;
   }
 

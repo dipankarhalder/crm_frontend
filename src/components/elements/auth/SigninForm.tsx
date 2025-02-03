@@ -1,9 +1,8 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-
 import {
   Form,
   FormControl,
@@ -17,13 +16,15 @@ import { useToast } from "@/hooks/use-toast";
 
 import { IUserSignin } from "@/interface";
 import { SigninSchema } from "@/validate";
-// import {SpinnerLoading} from "@/components/shared/spinner";
+import { applinks } from "@/router/links";
+import { Spinner } from "@/components/elements/spinner";
+import { loginUser } from "@/services/auth.services";
 
 export const SigninForm = () => {
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [waiting, setWaiting] = useState(false);
 
-  /* handle form data */
   const form = useForm<z.infer<typeof SigninSchema>>({
     resolver: zodResolver(SigninSchema),
     defaultValues: {
@@ -32,28 +33,23 @@ export const SigninForm = () => {
     },
   });
 
-  /* handle submit */
   const onSubmit = async (data: z.infer<typeof SigninSchema>) => {
     setWaiting(true);
-    const payload: IUserSignin = {
-      ...data,
-    };
-
-    console.log(payload);
-    toast({ variant: "destructive", title: "sdkjfghjsdgfhjdsh" });
-
-    // auth_signin(payload)
-    //   .then((res) => {
-    //     if (res) {
-    //       if (!res.success) {
-    //         toast({ variant: "destructive", title: res.message });
-    //       } else {
-    //         router.push(admin_router.dashboard);
-    //       }
-    //     }
-    //     setWaiting(false);
-    //   })
-    //   .catch((err) => console.log(err));
+    const payload: IUserSignin = { ...data };
+    loginUser(payload)
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      .then((res: any) => {
+        if (res.status === 200) {
+          localStorage.setItem("token", res.token);
+          localStorage.setItem("isLogin", JSON.stringify(true));
+          navigate(applinks.dashboard);
+          setWaiting(false);
+        }
+      })
+      .catch(({ message }) => {
+        toast({ title: message });
+        setWaiting(false);
+      });
   };
 
   return (
@@ -108,7 +104,7 @@ export const SigninForm = () => {
         </div>
         {waiting ? (
           <div className="w-full bg-gray-400 h-11 flex items-center justify-center rounded-md">
-            {/* <SpinnerLoading/> */}
+            <Spinner />
             <p className="font-medium text-white text-sm ml-2">
               Please wait...
             </p>
