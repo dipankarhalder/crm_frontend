@@ -43,7 +43,6 @@ export const SigninForm = () => {
       setToken(res.token);
       setLogin("true");
       navigate(applinks.dashboard);
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       toast({ title: err.message, variant: "failed" });
     } finally {
