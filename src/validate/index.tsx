@@ -30,13 +30,10 @@ export const SigninSchema = z.object({
 });
 
 export const SignupSchema = z.object({
-  first_name: z.string().min(2, {
+  name: z.string().min(2, {
     message: "First name must be at least 2 characters.",
   }),
-  last_name: z.string().min(2, {
-    message: "Last name must be at least 2 characters.",
-  }),
-  user_role: z.string().refine((role) => user_roles.includes(role), {
+  role: z.string().refine((role) => user_roles.includes(role), {
     message: "Invalid user role. Please select a valid role.",
   }),
   email: emailValidate,
