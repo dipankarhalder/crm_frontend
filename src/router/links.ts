@@ -1,6 +1,9 @@
 export const applinks = {
+  // auth
   login: "/",
   register: "registration",
+
+  // dashboard
   dashboard: "dashboard",
 
   // customers

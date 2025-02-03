@@ -17,7 +17,7 @@ import { useToast } from "@/hooks/use-toast";
 
 import { IUserRequest } from "@/interface";
 import { SignupSchema } from "@/validate";
-// import {SpinnerLoading} from "@/components/shared/spinner";
+import { Spinner } from "@/components/elements/spinner";
 
 export const SignupForm = () => {
   const userType = [
@@ -192,7 +192,7 @@ export const SignupForm = () => {
         </div>
         {waiting ? (
           <div className="w-full bg-gray-400 h-11 flex items-center justify-center rounded-md">
-            {/* <SpinnerLoading/> */}
+            <Spinner />
             <p className="font-medium text-white text-sm ml-2">
               Please wait...
             </p>

@@ -1,7 +1,12 @@
-import { ReactNode } from "react";
+import { ReactNode, ComponentType } from "react";
 import { type LucideIcon } from "lucide-react";
 
 export interface IChildren {
+  children: ReactNode;
+}
+
+export interface ICombineContextProps {
+  components: ComponentType<{ children: ReactNode }>[];
   children: ReactNode;
 }
 
