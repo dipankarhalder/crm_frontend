@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -12,93 +11,51 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useToast } from "@/hooks/use-toast";
-
 import { IUserRequest } from "@/interface";
 import { SignupSchema } from "@/validate";
 import { applinks } from "@/router/links";
+import { useAuthStore } from "@/store/authStore";
 import { Spinner } from "@/components/elements/spinner";
 import { registerUser } from "@/services/auth.services";
 
 export const SignupForm = () => {
-  const userType = [
-    { title: "Super User", value: "super_admin" },
-    { title: "Collaborator", value: "collaborator" },
-    { title: "Staff", value: "staff" },
-  ];
-
   const { toast } = useToast();
   const navigate = useNavigate();
-  const [waiting, setWaiting] = useState(false);
+  const { loading, setLoading } = useAuthStore();
 
-  /* handle form data */
   const form = useForm<z.infer<typeof SignupSchema>>({
     resolver: zodResolver(SignupSchema),
     defaultValues: {
       name: "",
-      role: "staff",
+      role: "super_admin",
       email: "",
       phone: "",
       password: "",
     },
   });
 
-  /* handle submit */
-  const onSubmit = (data: z.infer<typeof SignupSchema>) => {
-    setWaiting(true);
+  const onSubmit = async (data: z.infer<typeof SignupSchema>) => {
     const payload: IUserRequest = { ...data };
-    registerUser(payload)
+    setLoading(true);
+    try {
+      const res = await registerUser(payload);
+      if (res.status === 400) {
+        return toast({ title: res.message, variant: "failed" });
+      }
+      toast({ title: res.message, variant: "success" });
+      navigate(applinks.login);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      .then((res: any) => {
-        if (res.status === 200) {
-          toast({ title: res.message, variant: "success" });
-          navigate(applinks.login);
-        } else {
-          toast({ title: res.response.data.message, variant: "failed" });
-        }
-        setWaiting(false);
-      })
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      .catch((error: any) => {
-        toast({ title: error.message, variant: "failed" });
-        setWaiting(false);
-      });
+    } catch (err: any) {
+      toast({ title: err.message, variant: "failed" });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
-        <div className="mb-4">
-          <FormField
-            control={form.control}
-            name="role"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <RadioGroup
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                    className="flex items-center justify-center"
-                  >
-                    {userType.map((user) => (
-                      <div className="flex items-center mr-5" key={user.value}>
-                        <RadioGroupItem value={user.value} id={user.value} />
-                        <label
-                          htmlFor={user.value}
-                          className="font-medium text-sm text-slate-500 ml-2"
-                        >
-                          {user.title}
-                        </label>
-                      </div>
-                    ))}
-                  </RadioGroup>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
         <div className="mb-4">
           <FormField
             control={form.control}
@@ -168,7 +125,7 @@ export const SignupForm = () => {
             )}
           />
         </div>
-        {waiting ? (
+        {loading ? (
           <div className="w-full bg-gray-400 h-11 flex items-center justify-center rounded-md">
             <Spinner />
             <p className="font-medium text-white text-sm ml-2">

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -13,17 +12,17 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-
 import { IUserSignin } from "@/interface";
 import { SigninSchema } from "@/validate";
 import { applinks } from "@/router/links";
+import { useAuthStore } from "@/store/authStore";
 import { Spinner } from "@/components/elements/spinner";
 import { loginUser } from "@/services/auth.services";
 
 export const SigninForm = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
-  const [waiting, setWaiting] = useState(false);
+  const { loading, setToken, setLogin, setLoading } = useAuthStore();
 
   const form = useForm<z.infer<typeof SigninSchema>>({
     resolver: zodResolver(SigninSchema),
@@ -34,22 +33,22 @@ export const SigninForm = () => {
   });
 
   const onSubmit = async (data: z.infer<typeof SigninSchema>) => {
-    setWaiting(true);
     const payload: IUserSignin = { ...data };
-    loginUser(payload)
+    setLoading(true);
+    try {
+      const res = await loginUser(payload);
+      if (res.status === 400) {
+        return toast({ title: res.message, variant: "failed" });
+      }
+      setToken(res.token);
+      setLogin("true");
+      navigate(applinks.dashboard);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      .then((res: any) => {
-        if (res.status === 200) {
-          localStorage.setItem("token", res.token);
-          localStorage.setItem("isLogin", JSON.stringify(true));
-          navigate(applinks.dashboard);
-          setWaiting(false);
-        }
-      })
-      .catch(({ message }) => {
-        toast({ title: message });
-        setWaiting(false);
-      });
+    } catch (err: any) {
+      toast({ title: err.message, variant: "failed" });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -102,7 +101,7 @@ export const SigninForm = () => {
             </Link>
           </p>
         </div>
-        {waiting ? (
+        {loading ? (
           <div className="w-full bg-gray-400 h-11 flex items-center justify-center rounded-md">
             <Spinner />
             <p className="font-medium text-white text-sm ml-2">
