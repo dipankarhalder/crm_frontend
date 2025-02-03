@@ -6,9 +6,10 @@ import { IUserSignin, IUserRequest } from "@/interface";
 export const loginUser = async (payload: IUserSignin) => {
   try {
     const res = await axiosInstance.post(loginService, payload);
-    return res;
-  } catch (error: unknown) {
-    return error;
+    return res.data;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    return error.response.data;
   }
 };
 
@@ -16,9 +17,9 @@ export const loginUser = async (payload: IUserSignin) => {
 export const registerUser = async (payload: IUserRequest) => {
   try {
     const res = await axiosInstance.post(registerService, payload);
-    console.log(res);
-    return res;
-  } catch (error: unknown) {
-    return error;
+    return res.data;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    return error.response.data;
   }
 };
