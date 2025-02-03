@@ -45,7 +45,6 @@ export const SignupForm = () => {
       }
       toast({ title: res.message, variant: "success" });
       navigate(applinks.login);
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       toast({ title: err.message, variant: "failed" });
     } finally {
