@@ -5,8 +5,8 @@ import { profileMeService } from "@/services/routes";
 export const myProfile = async () => {
   try {
     const res = await axiosInstance.get(profileMeService);
-    return res;
-  } catch (error: unknown) {
-    return error;
+    return res.data;
+  } catch (error: any) {
+    return error.response.data;
   }
 };
