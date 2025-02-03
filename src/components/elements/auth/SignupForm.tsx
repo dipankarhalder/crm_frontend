@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-
 import {
   Form,
   FormControl,
@@ -17,25 +17,27 @@ import { useToast } from "@/hooks/use-toast";
 
 import { IUserRequest } from "@/interface";
 import { SignupSchema } from "@/validate";
+import { applinks } from "@/router/links";
 import { Spinner } from "@/components/elements/spinner";
+import { registerUser } from "@/services/auth.services";
 
 export const SignupForm = () => {
   const userType = [
-    { title: "Super User", value: "SUPER_USER" },
-    { title: "Admin", value: "ADMIN_USER" },
-    { title: "Staff", value: "STAFF_USER" },
+    { title: "Super User", value: "super_admin" },
+    { title: "Collaborator", value: "collaborator" },
+    { title: "Staff", value: "staff" },
   ];
 
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [waiting, setWaiting] = useState(false);
 
   /* handle form data */
   const form = useForm<z.infer<typeof SignupSchema>>({
     resolver: zodResolver(SignupSchema),
     defaultValues: {
-      first_name: "",
-      last_name: "",
-      user_role: "ADMIN_USER",
+      name: "",
+      role: "staff",
       email: "",
       phone: "",
       password: "",
@@ -46,24 +48,22 @@ export const SignupForm = () => {
   const onSubmit = (data: z.infer<typeof SignupSchema>) => {
     setWaiting(true);
     const payload: IUserRequest = { ...data };
-
-    console.log(payload);
-    toast({ variant: "destructive", title: "sdkjfghjsdgfhjdsh" });
-
-    // auth_signup(payload)
-    //   .then(res => {
-    //     if (res) {
-    //       form.reset();
-    //       if (!res.success) {
-    //         toast({variant: "destructive", title: res.message});
-    //       } else {
-    //         toast({title: res.message});
-    //         router.push(auth_router.login_page);
-    //       }
-    //     }
-    //     setWaiting(false);
-    //   })
-    //   .catch(err => console.log(err));
+    registerUser(payload)
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      .then((res: any) => {
+        if (res.status === 200) {
+          toast({ title: res.message, variant: "success" });
+          navigate(applinks.login);
+        } else {
+          toast({ title: res.response.data.message, variant: "failed" });
+        }
+        setWaiting(false);
+      })
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      .catch((error: any) => {
+        toast({ title: error.message, variant: "failed" });
+        setWaiting(false);
+      });
   };
 
   return (
@@ -72,21 +72,21 @@ export const SignupForm = () => {
         <div className="mb-4">
           <FormField
             control={form.control}
-            name="user_role"
+            name="role"
             render={({ field }) => (
               <FormItem>
                 <FormControl>
                   <RadioGroup
                     onValueChange={field.onChange}
                     defaultValue={field.value}
-                    className="flex items-center"
+                    className="flex items-center justify-center"
                   >
                     {userType.map((user) => (
-                      <div className="flex items-center mr-4" key={user.value}>
+                      <div className="flex items-center mr-5" key={user.value}>
                         <RadioGroupItem value={user.value} id={user.value} />
                         <label
                           htmlFor={user.value}
-                          className="font-medium text-sm text-slate-500 ml-1"
+                          className="font-medium text-sm text-slate-500 ml-2"
                         >
                           {user.title}
                         </label>
@@ -100,40 +100,18 @@ export const SignupForm = () => {
           />
         </div>
         <div className="mb-4">
-          <div className="flex gap-4">
-            <FormField
-              control={form.control}
-              name="first_name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input
-                      placeholder="First name"
-                      {...field}
-                      className="h-12 px-5"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="last_name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input
-                      placeholder="Last name"
-                      {...field}
-                      className="h-12 px-5"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Input placeholder="Name" {...field} className="h-12 px-5" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
         </div>
         <div className="mb-4">
           <FormField

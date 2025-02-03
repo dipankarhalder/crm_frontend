@@ -1,12 +1,7 @@
-import { ReactNode, ComponentType } from "react";
+import { ReactNode } from "react";
 import { type LucideIcon } from "lucide-react";
 
 export interface IChildren {
-  children: ReactNode;
-}
-
-export interface ICombineContextProps {
-  components: ComponentType<{ children: ReactNode }>[];
   children: ReactNode;
 }
 
@@ -16,10 +11,8 @@ export interface IUserSignin {
 }
 
 export interface IUserRequest {
-  user_id?: string;
-  first_name: string;
-  last_name: string;
-  user_role: string;
+  name: string;
+  role: string;
   phone: string;
   email: string;
   password: string;
