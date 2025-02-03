@@ -1,12 +1,12 @@
-import { Navigate, Outlet } from "react-router-dom";
-import { useAuth } from "@/hooks/use-auth";
+import { Outlet, Navigate } from "react-router-dom";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/elements/sidebar/AppSidebar";
 
 export const MainLayout = () => {
-  const { user } = useAuth();
+  const isToken = localStorage && localStorage.getItem("token");
+  const isLogin = localStorage && localStorage.getItem("isLogin");
 
-  if (!user) {
+  if (!isToken && !isLogin) {
     return <Navigate to="/" />;
   }
 
