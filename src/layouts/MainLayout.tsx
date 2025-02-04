@@ -6,6 +6,7 @@ import { AppSidebar } from "@/components/elements/sidebar/AppSidebar";
 import { useAuthStore } from "@/store/authStore";
 import { useProfileStore } from "@/store/profileStore";
 import { myProfile } from "@/services/profile.services";
+import { applinks } from "@/router/links";
 
 export const MainLayout = () => {
   const { toast } = useToast();
@@ -34,7 +35,7 @@ export const MainLayout = () => {
   }, [isToken, isLogin, getMyProfile]);
 
   if (!isToken && !isLogin) {
-    return <Navigate to="/" />;
+    return <Navigate to={applinks.login} />;
   }
 
   return (

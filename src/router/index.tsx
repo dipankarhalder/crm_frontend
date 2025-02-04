@@ -16,6 +16,8 @@ import { ViewCustomer } from "@/pages/apps/Customer/ViewCustomer";
 import { VendorsPage } from "@/pages/apps/VendorsPage";
 import { CalendarPage } from "@/pages/apps/CalendarPage";
 import { BillingsPage } from "@/pages/apps/BillingsPage";
+import { ProfilePage } from "@/pages/apps/ProfilePage";
+import { ViewProfile } from "@/pages/apps/Profile/ViewProfile";
 
 export const router = createBrowserRouter([
   {
@@ -73,6 +75,16 @@ export const router = createBrowserRouter([
       {
         path: applinks.billing,
         element: <BillingsPage />,
+      },
+      {
+        path: applinks.profile,
+        element: <ProfilePage />,
+        children: [
+          {
+            index: true,
+            element: <ViewProfile />,
+          },
+        ],
       },
     ],
   },
