@@ -1,5 +1,6 @@
 import { useEffect, useCallback } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { applinks } from "@/router/links";
 import { Header } from "@/components/elements/header";
 import { CustomerDataTable } from "@/components/elements/dataTable/CustomerTable";
 import { vendorsColumns } from "@/components/elements/vendors/Columns";
@@ -36,6 +37,8 @@ export const VendorsPage = () => {
             data={listprofile}
             heading={"Manage list of Collaborators"}
             filterData={"name"}
+            btnText={"Add Collaborator"}
+            btnLink={applinks.addCollaborators}
           />
         </div>
       </>

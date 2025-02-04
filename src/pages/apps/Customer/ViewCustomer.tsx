@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router";
+import { Link, useParams } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { applinks } from "@/router/links";
 import { useConsumerStore } from "@/store/consumerStore";
@@ -99,12 +99,10 @@ export const ViewCustomer = () => {
                   <h6 className="text-sm font-medium mb-1">Address:</h6>
                 </div>
                 <div>
-                  <p className="text-xs font-medium mb-1">
+                  <p className="text-xs font-medium leading-[20px]">
                     {foundUser.address.area}, {foundUser.address.landmark},{" "}
-                    {foundUser.address.city},
-                  </p>
-                  <p className="text-xs font-medium">
-                    {foundUser.address.state} - {foundUser.address.pincode}.
+                    {foundUser.address.city},{foundUser.address.state} -{" "}
+                    {foundUser.address.pincode}.
                   </p>
                 </div>
               </div>

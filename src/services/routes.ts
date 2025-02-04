@@ -12,6 +12,7 @@ export const profilesService = `${v1}/profile`;
 export const updateProfilesService = `${v1}/profile/update-profile`;
 
 // consumer
+export const consumerAddService = `${v1}/consumer/new`;
 export const consumerListService = `${v1}/consumer/list`;
 export const consumerProfileService = `${v1}/consumer`;
 // export const updateProfilesService = `${v1}/profile/update-profile`;
