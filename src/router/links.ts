@@ -18,6 +18,7 @@ export const applinks = {
 
   // vendors
   vendors: "/collaborators",
+  addCollaborators: "add-collaborators",
   calendar: "/calendar",
   billing: "/billing",
 };

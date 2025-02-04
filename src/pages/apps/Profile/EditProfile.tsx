@@ -43,7 +43,6 @@ export const EditProfile = () => {
 
   const onSubmit = async (data: any) => {
     const payload = { ...data };
-    console.log(payload);
     setLoading(true);
     try {
       const res = await editProfile(payload);
