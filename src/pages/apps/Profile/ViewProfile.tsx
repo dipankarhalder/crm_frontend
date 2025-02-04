@@ -25,7 +25,7 @@ export const ViewProfile = () => {
       <div className="flex justify-between items-center px-[22rem] w-full mb-6">
         <h1 className="font-medium mr-8 text-base text-black">
           <Link to={applinks.dashboard} className="flex items-center">
-            <ArrowLeft className="mr-5 w-5 h-5" /> Profile Page
+            <ArrowLeft className="mr-5 w-5 h-5" /> My Profile
           </Link>
         </h1>
       </div>
@@ -96,7 +96,7 @@ export const ViewProfile = () => {
             <ul className="flex gap-4">
               <li className="">
                 <Link
-                  to="/"
+                  to={applinks.editUser}
                   className="flex items-center w-full gap-2 border border-slate-300 rounded-md px-4 py-2 hover:border-indigo-600 hover:text-indigo-600 transition-all ease-in-out"
                 >
                   <UserRoundPen className="mr-1 w-5 h-5" />
