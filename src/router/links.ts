@@ -6,6 +6,10 @@ export const applinks = {
   // dashboard
   dashboard: "/dashboard",
 
+  // profile
+  profile: "/profile",
+  editUser: "update-info",
+
   // customers
   customers: "/customers",
   addCustomer: "add-customer",
@@ -16,5 +20,4 @@ export const applinks = {
   vendors: "/collaborators",
   calendar: "/calendar",
   billing: "/billing",
-  profile: "/profile",
 };

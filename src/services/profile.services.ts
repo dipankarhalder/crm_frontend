@@ -1,10 +1,24 @@
 import { axiosInstance } from "@/services/baseConfig";
-import { profileMeService, profilesService } from "@/services/routes";
+import {
+  profileMeService,
+  updateProfilesService,
+  profilesService,
+} from "@/services/routes";
 
 /* profile service */
 export const myProfile = async () => {
   try {
     const res = await axiosInstance.get(profileMeService);
+    return res.data;
+  } catch (error: any) {
+    return error.response.data;
+  }
+};
+
+/* edit profile service */
+export const editProfile = async (payload: any) => {
+  try {
+    const res = await axiosInstance.patch(updateProfilesService, payload);
     return res.data;
   } catch (error: any) {
     return error.response.data;
