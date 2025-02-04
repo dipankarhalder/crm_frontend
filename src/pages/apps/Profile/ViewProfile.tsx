@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import {
   ArrowLeft,
-  FileKey2,
+  KeyRound,
   Combine,
   CircleUser,
   CalendarFold,
-  BookOpenCheck,
+  UserRoundPen,
   CircleFadingPlus,
 } from "lucide-react";
 import { applinks } from "@/router/links";
@@ -52,13 +52,17 @@ export const ViewProfile = () => {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col bg-slate-50 py-4 px-6">
+            <div className="flex flex-col bg-slate-200 py-4 px-6">
               <div className="flex mb-3">
                 <div className="w-[103px]">
                   <h6 className="text-sm font-medium mb-1">Role:</h6>
                 </div>
                 <div>
-                  <p className="text-xs font-medium mb-1">{profile.role}</p>
+                  <p className="text-xs font-medium mb-1 capitalize">
+                    {profile.role === "super_admin"
+                      ? "Super Admin"
+                      : profile.role}
+                  </p>
                 </div>
               </div>
               <div className="flex items-center">
@@ -82,21 +86,34 @@ export const ViewProfile = () => {
                 )}
               </div>
             </div>
-            <div className="flex bg-slate-200 py-4 px-6 gap-4">
-              {profile.address && (
-                <span className="flex px-3 py-2 items-center text-white font-medium text-xs rounded-md cursor-pointer bg-indigo-600 hover:bg-indigo-700">
-                  <BookOpenCheck className="mr-2 w-4 h-4" /> Update Address
-                </span>
-              )}
-
-              <span className="flex px-3 py-2 items-center text-white font-medium text-xs rounded-md cursor-pointer bg-indigo-600 hover:bg-indigo-700">
-                <FileKey2 className="mr-2 w-4 h-4" />
-                Change Password
-              </span>
-            </div>
           </div>
         )}
         <div className="w-full">
+          <div className="flex flex-col mb-8">
+            <p className="text-xs mb-2 font-medium text-slate-500">
+              Profile links
+            </p>
+            <ul className="flex gap-4">
+              <li className="">
+                <Link
+                  to="/"
+                  className="flex items-center w-full gap-2 border border-slate-300 rounded-md px-4 py-2 hover:border-indigo-600 hover:text-indigo-600 transition-all ease-in-out"
+                >
+                  <UserRoundPen className="mr-1 w-5 h-5" />
+                  <p className="font-medium text-xs">Update Profile</p>
+                </Link>
+              </li>
+              <li className="">
+                <Link
+                  to="/"
+                  className="flex items-center w-full gap-2 border border-slate-300 rounded-md px-4 py-2 hover:border-indigo-600 hover:text-indigo-600 transition-all ease-in-out"
+                >
+                  <KeyRound className="mr-1 w-5 h-5" />
+                  <p className="font-medium text-xs">Change Password</p>
+                </Link>
+              </li>
+            </ul>
+          </div>
           <div className="flex flex-col">
             <p className="text-xs mb-2 font-medium text-slate-500">
               Important links
