@@ -18,6 +18,7 @@ import { CalendarPage } from "@/pages/apps/CalendarPage";
 import { BillingsPage } from "@/pages/apps/BillingsPage";
 import { ProfilePage } from "@/pages/apps/ProfilePage";
 import { ViewProfile } from "@/pages/apps/Profile/ViewProfile";
+import { EditProfile } from "@/pages/apps/Profile/EditProfile";
 
 export const router = createBrowserRouter([
   {
@@ -83,6 +84,10 @@ export const router = createBrowserRouter([
           {
             index: true,
             element: <ViewProfile />,
+          },
+          {
+            path: applinks.editUser,
+            element: <EditProfile />,
           },
         ],
       },
