@@ -29,13 +29,14 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { applinks } from "@/router/links";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   heading: string;
   filterData: string;
+  btnText: string;
+  btnLink: string;
 }
 
 export function CustomerDataTable<TData, TValue>({
@@ -43,6 +44,8 @@ export function CustomerDataTable<TData, TValue>({
   data,
   heading,
   filterData,
+  btnText,
+  btnLink,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -88,11 +91,11 @@ export function CustomerDataTable<TData, TValue>({
         </div>
         <div>
           <Link
-            to={applinks.addCustomer}
+            to={btnLink}
             className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
           >
             <CirclePlus />
-            Add Item
+            {btnText}
           </Link>
         </div>
       </div>

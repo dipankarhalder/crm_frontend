@@ -52,7 +52,7 @@ export const ViewProfile = () => {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col bg-slate-200 py-4 px-6">
+            <div className="flex flex-col bg-slate-100 py-4 px-6">
               <div className="flex mb-3">
                 <div className="w-[103px]">
                   <h6 className="text-sm font-medium mb-1">Role:</h6>
