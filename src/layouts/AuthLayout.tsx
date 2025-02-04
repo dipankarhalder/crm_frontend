@@ -1,5 +1,6 @@
 import { Outlet, useLocation, Navigate } from "react-router-dom";
 import { AuthLogo } from "@/components/elements/auth/AuthLogo";
+import { applinks } from "@/router/links";
 
 export const AuthLayout = () => {
   const location = useLocation();
@@ -7,7 +8,7 @@ export const AuthLayout = () => {
   const isLogin = localStorage && localStorage.getItem("isLogin");
 
   if (isToken && isLogin) {
-    return <Navigate to="/dashboard" />;
+    return <Navigate to={applinks.dashboard} />;
   }
 
   return (

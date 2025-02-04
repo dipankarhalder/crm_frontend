@@ -1,19 +1,20 @@
 export const applinks = {
   // auth
   login: "/",
-  register: "registration",
+  register: "/registration",
 
   // dashboard
-  dashboard: "dashboard",
+  dashboard: "/dashboard",
 
   // customers
-  customers: "customers",
+  customers: "/customers",
   addCustomer: "add-customer",
   viewCustomer: ":id",
   editCustomer: ":id",
 
   // vendors
-  vendors: "collaborators",
-  calendar: "calendar",
-  billing: "billing",
+  vendors: "/collaborators",
+  calendar: "/calendar",
+  billing: "/billing",
+  profile: "/profile",
 };
