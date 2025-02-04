@@ -1,5 +1,7 @@
 import { Link, useParams } from "react-router";
-import { customerData } from "@/components/elements/dataTable/Cdata";
+import { ArrowLeft } from "lucide-react";
+import { applinks } from "@/router/links";
+import { useConsumerStore } from "@/store/consumerStore";
 
 function getInitials(name: string) {
   const words = name.split(" ");
@@ -9,7 +11,10 @@ function getInitials(name: string) {
 
 export const ViewCustomer = () => {
   const params = useParams();
-  const foundUser = customerData.find((u) => u.id === params.id);
+  const { listConsumer } = useConsumerStore();
+
+  const foundUser =
+    listConsumer && listConsumer.find((u: any) => u._id === params.id);
 
   const projectLists = [
     {
@@ -55,11 +60,15 @@ export const ViewCustomer = () => {
   ];
 
   return (
-    <div className="flex items-center py-4 px-[22rem] w-full">
+    <div className="flex flex-col items-center py-4 px-[22rem] w-full">
+      <div className="flex justify-between items-center w-full mb-6">
+        <h1 className="font-medium mr-8 text-base text-black">
+          <Link to={applinks.customers} className="flex items-center">
+            <ArrowLeft className="mr-5 w-5 h-5" /> Consumer Details
+          </Link>
+        </h1>
+      </div>
       <div className="flex flex-col w-full">
-        <p className="text-xs mb-2 font-medium text-slate-500">
-          Personal information
-        </p>
         <div className="flex flex-col border border-slate-300 mb-10 w-full rounded-md overflow-hidden">
           {foundUser && (
             <>
@@ -91,10 +100,11 @@ export const ViewCustomer = () => {
                 </div>
                 <div>
                   <p className="text-xs font-medium mb-1">
-                    {foundUser.address.location}, {foundUser.address.city},
+                    {foundUser.address.area}, {foundUser.address.landmark},{" "}
+                    {foundUser.address.city},
                   </p>
                   <p className="text-xs font-medium">
-                    {foundUser.address.state} - {foundUser.address.pin}.
+                    {foundUser.address.state} - {foundUser.address.pincode}.
                   </p>
                 </div>
               </div>

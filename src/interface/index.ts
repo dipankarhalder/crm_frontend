@@ -63,15 +63,16 @@ export interface ITeams {
 }
 
 export type IUserInfo = {
-  id: string;
+  _id: string;
   name: string;
   email: string;
   phone: string;
   address: {
-    location: string;
+    area: string;
+    landmark: string;
     city: string;
     state: string;
-    pin: string;
+    pincode: string;
   };
 };
 

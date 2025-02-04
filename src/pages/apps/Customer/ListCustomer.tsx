@@ -1,14 +1,18 @@
+import { useConsumerStore } from "@/store/consumerStore";
 import { CustomerDataTable } from "@/components/elements/dataTable/CustomerTable";
 import { customerColumns } from "@/components/elements/customer/Columns";
-import { customerData } from "@/components/elements/dataTable/Cdata";
 
 export const ListCustomer = () => {
+  const { listConsumer } = useConsumerStore();
+
   return (
-    <CustomerDataTable
-      columns={customerColumns}
-      data={customerData}
-      heading={"Manage list of Customers"}
-      filterData={"email"}
-    />
+    listConsumer && (
+      <CustomerDataTable
+        columns={customerColumns}
+        data={listConsumer}
+        heading={"Manage list of Customers"}
+        filterData={"email"}
+      />
+    )
   );
 };

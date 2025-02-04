@@ -10,3 +10,8 @@ export const logoutService = `${v1}/auth/signout`;
 export const profileMeService = `${v1}/profile/me`;
 export const profilesService = `${v1}/profile`;
 export const updateProfilesService = `${v1}/profile/update-profile`;
+
+// consumer
+export const consumerListService = `${v1}/consumer/list`;
+export const consumerProfileService = `${v1}/consumer`;
+// export const updateProfilesService = `${v1}/profile/update-profile`;
