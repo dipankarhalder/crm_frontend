@@ -1,8 +1,7 @@
 import { Link } from "react-router-dom";
+import moment from "moment";
 import { ColumnDef } from "@tanstack/react-table";
 import { ChevronsUpDown, Ellipsis, Eye, PenTool, Trash2 } from "lucide-react";
-
-import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -13,28 +12,6 @@ import {
 import { IUserInfo } from "@/interface";
 
 export const customerColumns: ColumnDef<IUserInfo>[] = [
-  {
-    id: "select",
-    header: ({ table }) => (
-      <Checkbox
-        checked={
-          table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
-        }
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-      />
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
   {
     accessorKey: "name",
     header: ({ column }) => {
@@ -78,8 +55,17 @@ export const customerColumns: ColumnDef<IUserInfo>[] = [
     header: "Address",
     cell: ({ row }) => (
       <div className="capitalize font-semibold">
-        {row.original.address.location}, {row.original.address.state} -{" "}
-        {row.original.address.pin}
+        {row.original.address.area}, {row.original.address.landmark} - &nbsp;
+        {row.original.address.pincode}
+      </div>
+    ),
+  },
+  {
+    accessorKey: "createdAt",
+    header: "Created",
+    cell: ({ row }) => (
+      <div className="capitalize font-semibold">
+        {moment(row.getValue("createdAt")).format("ll")}
       </div>
     ),
   },
@@ -98,7 +84,7 @@ export const customerColumns: ColumnDef<IUserInfo>[] = [
             <DropdownMenuContent align="end">
               <DropdownMenuItem>
                 <Link
-                  to={`view/${row.original.id}`}
+                  to={`view/${row.original._id}`}
                   className="flex items-center font-semibold text-xs"
                 >
                   <Eye className="mr-2" />
@@ -107,7 +93,7 @@ export const customerColumns: ColumnDef<IUserInfo>[] = [
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <Link
-                  to={`edit/${row.original.id}`}
+                  to={`edit/${row.original._id}`}
                   className="flex items-center font-semibold text-xs"
                 >
                   <PenTool className="mr-2" />
