@@ -6,7 +6,7 @@ export const SignupLink = () => {
       <p>
         If you have already account. &nbsp;
         <Link to={"/"} className="font-medium underline hover:text-indigo-700">
-          Sign in now
+          Login now
         </Link>
       </p>
     </div>

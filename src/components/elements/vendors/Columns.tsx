@@ -12,10 +12,17 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
+const colorArr = ["bg-indigo-500", "bg-rose-500", "bg-amber-500"];
+
 function getInitials(name: string) {
   const words = name.split(" ");
   const initials = words.map((word) => word.charAt(0).toUpperCase()).join("");
   return initials;
+}
+
+function shuffleArray(arr: any) {
+  const randomIndex = Math.floor(Math.random() * arr.length);
+  return arr[randomIndex];
 }
 
 export const vendorsColumns: ColumnDef<IVendorInfo>[] = [
@@ -37,7 +44,11 @@ export const vendorsColumns: ColumnDef<IVendorInfo>[] = [
       return (
         <div className="flex items-center">
           <Avatar className="mr-3">
-            <AvatarFallback className="font-semibold text-xs">
+            <AvatarFallback
+              className={`font-semibold text-xs text-white ${shuffleArray(
+                colorArr
+              )}`}
+            >
               {initials}
             </AvatarFallback>
           </Avatar>
@@ -82,7 +93,21 @@ export const vendorsColumns: ColumnDef<IVendorInfo>[] = [
       );
     },
     cell: ({ row }) => (
-      <div className="capitalize font-semibold">{row.getValue("role")}</div>
+      <div className="flex">
+        {row.getValue("role") === "super_admin" ? (
+          <div className="capitalize text-xs font-semibold bg-green-200 text-green-900 py-1 px-2 rounded-md">
+            {row.getValue("role")}
+          </div>
+        ) : row.getValue("role") === "collaborator" ? (
+          <div className="capitalize text-xs font-semibold bg-blue-200 text-blue-900 py-1 px-2 rounded-md">
+            {row.getValue("role")}
+          </div>
+        ) : (
+          <div className="capitalize text-xs font-semibold bg-amber-200 text-amber-900 py-1 px-2 rounded-md">
+            {row.getValue("role")}
+          </div>
+        )}
+      </div>
     ),
   },
   {
