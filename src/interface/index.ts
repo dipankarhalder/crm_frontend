@@ -27,6 +27,7 @@ export interface IMainNav {
     title: string;
     url: string;
     icon?: LucideIcon;
+    color: string;
   }[];
 }
 
@@ -36,22 +37,6 @@ export interface ISideUser {
     email: string;
     avatar: string;
   };
-}
-
-export interface IProjects {
-  projects: {
-    name: string;
-    url: string;
-    icon: LucideIcon;
-  }[];
-}
-
-export interface IVendors {
-  vendors: {
-    name: string;
-    url: string;
-    icon: LucideIcon;
-  }[];
 }
 
 export interface ITeams {

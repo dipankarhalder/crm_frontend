@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -71,7 +71,7 @@ export const SigninForm = () => {
             )}
           />
         </div>
-        <div className="mb-2">
+        <div className="mb-8">
           <FormField
             control={form.control}
             name="password"
@@ -89,16 +89,6 @@ export const SigninForm = () => {
               </FormItem>
             )}
           />
-        </div>
-        <div className="flex justify-end text-sm mb-6">
-          <p>
-            <Link
-              to={"/"}
-              className="font-medium text-xs underline hover:text-indigo-700"
-            >
-              Forgot Password?
-            </Link>
-          </p>
         </div>
         {loading ? (
           <div className="w-full bg-gray-400 h-11 flex items-center justify-center rounded-md">

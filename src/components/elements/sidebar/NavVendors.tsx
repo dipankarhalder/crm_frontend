@@ -18,7 +18,7 @@ export function NavVendors({ vendors }: any) {
             <SidebarMenuItem key={item._id}>
               <SidebarMenuButton asChild tooltip={item.name}>
                 <Link to={item._id}>
-                  <CircleCheckBig />
+                  <CircleCheckBig className="text-sky-500" />
                   <span>{item.name}</span>
                   <ChevronRight
                     className="ml-auto transition-transform duration-200 text-gray-400"

@@ -74,7 +74,7 @@ export function CustomerDataTable<TData, TValue>({
         <h1 className="font-medium mr-8 text-base text-black">
           {heading}
           <Badge className="ml-4 bg-slate-300 text-black">
-            {table.getFilteredRowModel().rows.length} collaborators
+            {table.getFilteredRowModel().rows.length}
           </Badge>
         </h1>
         <div className="flex items-center">

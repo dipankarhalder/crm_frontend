@@ -26,26 +26,31 @@ export const navData = {
       title: "Dashboard",
       url: applinks.dashboard,
       icon: House,
+      color: "text-indigo-500",
     },
     {
       title: "Collaborators",
       url: applinks.vendors,
       icon: Combine,
+      color: "text-indigo-500",
     },
     {
       title: "Customers",
       url: applinks.customers,
       icon: CircleUser,
+      color: "text-indigo-500",
     },
     {
       title: "Calendar",
       url: applinks.calendar,
       icon: CalendarFold,
+      color: "text-indigo-500",
     },
     {
       title: "Billings",
       url: applinks.billing,
       icon: Ticket,
+      color: "text-indigo-500",
     },
   ],
 };
