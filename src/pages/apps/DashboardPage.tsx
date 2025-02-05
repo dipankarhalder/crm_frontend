@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-
+import { applinks } from "@/router/links";
 import { Combine, CircleUser, CalendarFold, ChevronRight } from "lucide-react";
 import { Header } from "@/components/elements/header";
 
@@ -16,31 +16,31 @@ export const DashboardPage = () => {
             <div className="w-[70%]">
               <div className="flex flex-col">
                 <ul className="flex gap-4">
-                  <li className="border border-slate-300 rounded-md px-5 pt-4 pb-3">
+                  <li className="">
                     <Link
-                      to="/"
-                      className="flex flex-col items-center w-full gap-2"
+                      to={`${applinks.customers}/${applinks.addCustomer}`}
+                      className="flex items-center w-full gap-2 border border-slate-300 rounded-md px-4 py-2 hover:border-indigo-600 hover:text-indigo-600 transition-all ease-in-out"
                     >
-                      <CircleUser />
-                      <p className="font-medium text-sm">Add Customers</p>
+                      <CircleUser className="mr-1 w-5 h-5" />
+                      <p className="font-medium text-xs">Add Customers</p>
                     </Link>
                   </li>
-                  <li className="border border-slate-300 rounded-md px-5 pt-4 pb-3">
+                  <li className="">
                     <Link
                       to="/"
-                      className="flex flex-col items-center w-full gap-2"
+                      className="flex items-center w-full gap-2 border border-slate-300 rounded-md px-4 py-2 hover:border-indigo-600 hover:text-indigo-600 transition-all ease-in-out"
                     >
-                      <CalendarFold />
-                      <p className="font-medium text-sm">Add Events</p>
+                      <CalendarFold className="mr-1 w-5 h-5" />
+                      <p className="font-medium text-xs">Add Events</p>
                     </Link>
                   </li>
-                  <li className="border border-slate-300 rounded-md px-5 pt-4 pb-3">
+                  <li className="">
                     <Link
                       to="/"
-                      className="flex flex-col items-center w-full gap-2"
+                      className="flex items-center w-full gap-2 border border-slate-300 rounded-md px-4 py-2 hover:border-indigo-600 hover:text-indigo-600 transition-all ease-in-out"
                     >
-                      <Combine />
-                      <p className="font-medium text-sm">Add Collaborators</p>
+                      <Combine className="mr-1 w-5 h-5" />
+                      <p className="font-medium text-xs">Add Collaborators</p>
                     </Link>
                   </li>
                 </ul>
