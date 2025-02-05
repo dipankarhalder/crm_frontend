@@ -18,7 +18,7 @@ export function NavMain({ items }: IMainNav) {
           <SidebarMenuItem key={item.title}>
             <SidebarMenuButton asChild tooltip={item.title}>
               <Link to={item.url}>
-                {item.icon && <item.icon />}
+                {item.icon && <item.icon className={item.color} />}
                 <span>{item.title}</span>
                 <ChevronRight className="ml-auto transition-transform duration-200 text-gray-400" />
               </Link>

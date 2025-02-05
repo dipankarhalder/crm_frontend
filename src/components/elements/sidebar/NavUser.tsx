@@ -58,7 +58,7 @@ export function NavUser({ user }: ISideUser) {
                 <>
                   <Avatar className="h-8 w-8 rounded-lg">
                     <AvatarImage src={user.avatar} alt={profile.name} />
-                    <AvatarFallback className="rounded-lg">
+                    <AvatarFallback className="rounded-lg bg-indigo-700 text-white">
                       {getInitials(profile.name)}
                     </AvatarFallback>
                   </Avatar>
@@ -85,7 +85,7 @@ export function NavUser({ user }: ISideUser) {
                   <>
                     <Avatar className="h-8 w-8 rounded-lg">
                       <AvatarImage src={user.avatar} alt={user.name} />
-                      <AvatarFallback className="rounded-lg">
+                      <AvatarFallback className="rounded-lg bg-indigo-700 text-white">
                         {getInitials(profile.name)}
                       </AvatarFallback>
                     </Avatar>

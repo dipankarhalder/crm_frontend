@@ -105,7 +105,7 @@ export const SignupForm = () => {
             )}
           />
         </div>
-        <div className="mb-4">
+        <div className="mb-8">
           <FormField
             control={form.control}
             name="password"
@@ -136,7 +136,7 @@ export const SignupForm = () => {
             className="w-full h-11 text-sm bg-indigo-600 hover:bg-indigo-700"
             type="submit"
           >
-            Register
+            Create an account
           </Button>
         )}
       </form>

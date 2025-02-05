@@ -19,7 +19,7 @@ export function NavProjects({ projects }: any) {
             <SidebarMenuItem key={item._id}>
               <SidebarMenuButton asChild tooltip={item.name}>
                 <Link to={`view/${item._id}`}>
-                  <Box />
+                  <Box className="text-yellow-600" />
                   <span>{item.name}</span>
                   <ChevronRight
                     className="ml-auto transition-transform duration-200 text-gray-400"
