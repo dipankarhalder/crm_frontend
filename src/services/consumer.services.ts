@@ -1,5 +1,9 @@
 import { axiosInstance } from "@/services/baseConfig";
-import { consumerAddService, consumerListService } from "@/services/routes";
+import {
+  consumerAddService,
+  consumerListService,
+  consumerProfileService,
+} from "@/services/routes";
 
 /* consumer list service */
 export const consumerLists = async () => {
@@ -15,6 +19,16 @@ export const consumerLists = async () => {
 export const addNewConsumer = async (payload: any) => {
   try {
     const res = await axiosInstance.post(consumerAddService, payload);
+    return res.data;
+  } catch (error: any) {
+    return error.response.data;
+  }
+};
+
+/* delete consumer service */
+export const deleteConsumer = async (id: string) => {
+  try {
+    const res = await axiosInstance.delete(`${consumerProfileService}/${id}`);
     return res.data;
   } catch (error: any) {
     return error.response.data;
