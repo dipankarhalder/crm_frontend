@@ -2,11 +2,9 @@ import {
   Combine,
   Ticket,
   CircleUser,
-  Box,
   Baby,
   House,
   CalendarFold,
-  CircleCheckBig,
 } from "lucide-react";
 import { applinks } from "@/router/links";
 
@@ -48,40 +46,6 @@ export const navData = {
       title: "Billings",
       url: applinks.billing,
       icon: Ticket,
-    },
-  ],
-  projects: [
-    {
-      name: "Sanjay Agarwal",
-      url: "#",
-      icon: Box,
-    },
-    {
-      name: "Deepan S. Mutthu",
-      url: "#",
-      icon: Box,
-    },
-    {
-      name: "Alex Tour & Travel",
-      url: "#",
-      icon: Box,
-    },
-  ],
-  vendors: [
-    {
-      name: "S. R. Studio",
-      url: "#",
-      icon: CircleCheckBig,
-    },
-    {
-      name: "Ishan Photography",
-      url: "#",
-      icon: CircleCheckBig,
-    },
-    {
-      name: "XYZ Decorators",
-      url: "#",
-      icon: CircleCheckBig,
     },
   ],
 };

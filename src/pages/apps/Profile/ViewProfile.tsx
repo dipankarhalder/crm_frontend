@@ -121,7 +121,7 @@ export const ViewProfile = () => {
             <ul className="flex gap-4">
               <li className="">
                 <Link
-                  to="/"
+                  to={`${applinks.customers}/${applinks.addCustomer}`}
                   className="flex items-center w-full gap-2 border border-slate-300 rounded-md px-4 py-2 hover:border-indigo-600 hover:text-indigo-600 transition-all ease-in-out"
                 >
                   <CircleUser className="mr-1 w-5 h-5" />

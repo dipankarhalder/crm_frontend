@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { MoreHorizontal, ChevronRight } from "lucide-react";
+import { MoreHorizontal, ChevronRight, Box } from "lucide-react";
 import {
   SidebarGroup,
   SidebarGroupLabel,
@@ -7,34 +7,41 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { IProjects } from "@/interface";
+import { applinks } from "@/router/links";
 
-export function NavProjects({ projects }: IProjects) {
+export function NavProjects({ projects }: any) {
   return (
-    <SidebarGroup>
-      <SidebarGroupLabel>Latest Projects</SidebarGroupLabel>
-      <SidebarMenu>
-        {projects.map((item) => (
-          <SidebarMenuItem key={item.name}>
-            <SidebarMenuButton asChild tooltip={item.name}>
-              <Link to={item.url}>
-                <item.icon />
-                <span>{item.name}</span>
-                <ChevronRight
-                  className="ml-auto transition-transform duration-200 text-gray-400"
-                  size={12}
-                />
+    projects && (
+      <SidebarGroup>
+        <SidebarGroupLabel>Last 4 Consumers</SidebarGroupLabel>
+        <SidebarMenu>
+          {projects.slice(0, 4).map((item: any) => (
+            <SidebarMenuItem key={item._id}>
+              <SidebarMenuButton asChild tooltip={item.name}>
+                <Link to={`view/${item._id}`}>
+                  <Box />
+                  <span>{item.name}</span>
+                  <ChevronRight
+                    className="ml-auto transition-transform duration-200 text-gray-400"
+                    size={12}
+                  />
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          ))}
+          <SidebarMenuItem>
+            <SidebarMenuButton>
+              <Link
+                to={applinks.customers}
+                className="flex items-center w-full"
+              >
+                <MoreHorizontal className="text-slate-400 mr-2 w-4 h-4" />
+                <span className="text-xs text-slate-400 font-medium">More</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
-        ))}
-        <SidebarMenuItem>
-          <SidebarMenuButton className="text-sidebar-foreground/70">
-            <MoreHorizontal className="text-sidebar-foreground/70" />
-            <span className="text-xs">More</span>
-          </SidebarMenuButton>
-        </SidebarMenuItem>
-      </SidebarMenu>
-    </SidebarGroup>
+        </SidebarMenu>
+      </SidebarGroup>
+    )
   );
 }

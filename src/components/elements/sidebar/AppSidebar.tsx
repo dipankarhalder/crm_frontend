@@ -11,8 +11,13 @@ import {
   SidebarHeader,
   SidebarRail,
 } from "@/components/ui/sidebar";
+import { useProfileStore } from "@/store/profileStore";
+import { useConsumerStore } from "@/store/consumerStore";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { listprofile } = useProfileStore();
+  const { listConsumer } = useConsumerStore();
+
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
@@ -20,8 +25,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={navData.navMain} />
-        <NavProjects projects={navData.projects} />
-        <NavVendors vendors={navData.vendors} />
+        <NavProjects projects={listConsumer} />
+        <NavVendors vendors={listprofile} />
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={navData.user} />
