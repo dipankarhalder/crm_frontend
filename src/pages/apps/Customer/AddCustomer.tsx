@@ -1,18 +1,14 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
-import { useToast } from "@/hooks/use-toast";
 import { useConsumerStore } from "@/store/consumerStore";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import { applinks } from "@/router/links";
-import { addNewConsumer, consumerLists } from "@/services/consumer.services";
 
 export const AddCustomer = () => {
-  const { toast } = useToast();
-  const navigate = useNavigate();
-  const { setLoading, setListConsumer } = useConsumerStore();
+  const { setNewConsumer, setToggleConsPopup } = useConsumerStore();
 
   const form = useForm({
     defaultValues: {
@@ -27,22 +23,10 @@ export const AddCustomer = () => {
     },
   });
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = (data: any) => {
     const payload = { ...data };
-    setLoading(true);
-    try {
-      const res = await addNewConsumer(payload);
-      if (res.status === 400) {
-        return toast({ title: res.message, variant: "failed" });
-      }
-      const cunsomerLists = await consumerLists();
-      setListConsumer(cunsomerLists.list);
-      navigate(applinks.customers);
-    } catch (err: any) {
-      toast({ title: err.message, variant: "failed" });
-    } finally {
-      setLoading(false);
-    }
+    setNewConsumer(payload);
+    setToggleConsPopup(true);
   };
 
   return (
@@ -210,10 +194,10 @@ export const AddCustomer = () => {
                   />
                 </div>
                 <Button
-                  className="w-auto h-11 text-sm bg-indigo-600 hover:bg-indigo-700 px-6"
+                  className="w-auto text-sm bg-indigo-600 hover:bg-indigo-700"
                   type="submit"
                 >
-                  Add Customer
+                  Yes, I want
                 </Button>
               </div>
             </div>

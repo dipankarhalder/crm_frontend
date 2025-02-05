@@ -10,6 +10,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { IUserInfo } from "@/interface";
+import { consumerLists, deleteConsumer } from "@/services/consumer.services.ts";
+
+const deleteFunc = async (delId: string) => {
+  await deleteConsumer(delId);
+  await consumerLists();
+};
 
 export const customerColumns: ColumnDef<IUserInfo>[] = [
   {
@@ -100,7 +106,10 @@ export const customerColumns: ColumnDef<IUserInfo>[] = [
                   Edit Information
                 </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem className="flex items-center font-semibold text-xs text-red-500 focus:text-red-500">
+              <DropdownMenuItem
+                onClick={() => deleteFunc(row.original._id)}
+                className="flex items-center font-semibold text-xs text-red-500 focus:text-red-500"
+              >
                 <Trash2 />
                 Delete Customer
               </DropdownMenuItem>
