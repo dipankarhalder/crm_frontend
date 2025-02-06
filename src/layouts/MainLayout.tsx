@@ -1,6 +1,6 @@
-import { useEffect, useCallback } from "react";
+import { useEffect } from "react";
 import { Outlet, Navigate } from "react-router-dom";
-import { useToast } from "@/hooks/use-toast";
+import { useQuery } from "@tanstack/react-query";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/elements/sidebar/AppSidebar";
 import { useAuthStore } from "@/store/authStore";
@@ -11,57 +11,50 @@ import { consumerLists } from "@/services/consumer.services";
 import { applinks } from "@/router/links";
 
 export const MainLayout = () => {
-  const { toast } = useToast();
   const { isToken, isLogin } = useAuthStore();
-  const { setProfile, setLoading, setListProfile } = useProfileStore();
+  const { setProfile, setListProfile } = useProfileStore();
   const { setListConsumer } = useConsumerStore();
 
-  const getMyProfile = useCallback(async () => {
-    setLoading(true);
-    try {
-      const res = await myProfile();
-      if (res.status === 400) {
-        return toast({ title: res.message, variant: "failed" });
-      }
-      setProfile(res.data);
-    } catch (err: any) {
-      toast({ title: err.message, variant: "failed" });
-    } finally {
-      setLoading(false);
-    }
-  }, [setLoading, setProfile, toast]);
+  const { data: userProfileInformation, isSuccess: userSuccess } = useQuery({
+    queryKey: ["userProfile"],
+    queryFn: myProfile,
+  });
 
-  const getListConsumer = useCallback(async () => {
-    try {
-      const res = await consumerLists();
-      if (res.status === 400) {
-        return toast({ title: res.message, variant: "failed" });
-      }
-      setListConsumer(res.list);
-    } catch (err: any) {
-      toast({ title: err.message, variant: "failed" });
-    }
-  }, [setListConsumer, toast]);
+  const { data: listOfConsumer, isSuccess: consumerSuccess } = useQuery({
+    queryKey: ["consumers"],
+    queryFn: consumerLists,
+  });
 
-  const getListProfile = useCallback(async () => {
-    try {
-      const res = await userProfiles();
-      if (res.status === 400) {
-        return toast({ title: res.message, variant: "failed" });
-      }
-      setListProfile(res.data);
-    } catch (err: any) {
-      toast({ title: err.message, variant: "failed" });
-    }
-  }, [setListProfile, toast]);
+  const { data: listOfProfiles, isSuccess: profileSuccess } = useQuery({
+    queryKey: ["userProfiles"],
+    queryFn: userProfiles,
+  });
 
   useEffect(() => {
     if (isToken && isLogin) {
-      getMyProfile();
-      getListProfile();
-      getListConsumer();
+      if (userSuccess) {
+        setProfile(userProfileInformation.data);
+      }
+      if (consumerSuccess) {
+        setListConsumer(listOfConsumer.list);
+      }
+      if (profileSuccess) {
+        setListProfile(listOfProfiles.data);
+      }
     }
-  }, [isToken, isLogin, getMyProfile, getListProfile, getListConsumer]);
+  }, [
+    userSuccess,
+    userProfileInformation,
+    isToken,
+    isLogin,
+    consumerSuccess,
+    profileSuccess,
+    listOfConsumer,
+    listOfProfiles,
+    setProfile,
+    setListConsumer,
+    setListProfile,
+  ]);
 
   if (!isToken && !isLogin) {
     return <Navigate to={applinks.login} />;
