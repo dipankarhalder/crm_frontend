@@ -7,12 +7,8 @@ import {
 
 /* profile service */
 export const myProfile = async () => {
-  try {
-    const res = await axiosInstance.get(profileMeService);
-    return res.data;
-  } catch (error: any) {
-    return error.response.data;
-  }
+  const res = await axiosInstance.get(profileMeService);
+  return res.data;
 };
 
 /* edit profile service */
