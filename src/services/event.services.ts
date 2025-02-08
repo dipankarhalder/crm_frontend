@@ -1,8 +1,14 @@
 import { axiosInstance } from "@/services/baseConfig";
-import { eventListService } from "@/services/routes";
+import { eventListService, eventService } from "@/services/routes";
 
-/* consumer list service */
+/* event list service */
 export const eventLists = async () => {
   const res = await axiosInstance.get(eventListService);
+  return res.data;
+};
+
+/* event service */
+export const getEvent = async (id: string) => {
+  const res = await axiosInstance.get(`${eventService}/${id}`);
   return res.data;
 };

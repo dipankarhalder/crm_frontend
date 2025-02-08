@@ -1,8 +1,12 @@
+import { useEffect, useState } from "react";
+import moment from "moment";
 import { Link, useParams } from "react-router-dom";
+// import { useQuery } from "@tanstack/react-query";
 import { ArrowLeft } from "lucide-react";
 import { applinks } from "@/router/links";
 import { useConsumerStore } from "@/store/consumerStore";
-import { useEventStore } from "@/store/eventStore";
+// import { useEventStore } from "@/store/eventStore";
+import { getEvent } from "@/services/event.services";
 
 function getInitials(name: string) {
   const words = name.split(" ");
@@ -11,14 +15,19 @@ function getInitials(name: string) {
 }
 
 export const ViewCustomer = () => {
+  const [proEvent, setProEvent] = useState<any>();
   const params = useParams();
   const { listConsumer } = useConsumerStore();
-  const { listEvents } = useEventStore();
+  // const { listEvents } = useEventStore();
 
   const foundUser =
     listConsumer && listConsumer.find((u: any) => u._id === params.id);
 
-  console.log(listEvents);
+  useEffect(() => {
+    if (foundUser) {
+      getEvent(foundUser._id).then((res) => setProEvent(res));
+    }
+  }, [foundUser]);
 
   return (
     <div className="flex flex-col items-center py-4 px-[22rem] w-full">
@@ -75,13 +84,13 @@ export const ViewCustomer = () => {
         </p>
         <div className="flex">
           <div className="flex flex-col w-full">
-            {listEvents &&
-              listEvents.map((item: any) => (
+            {proEvent && proEvent.event.length ? (
+              proEvent.event.map((item: any) => (
                 <div
                   key={item._id}
                   className="flex flex-col border border-slate-200 mb-3 w-full rounded-md py-3.5 px-4 relative"
                 >
-                  <h6 className="text-sm font-bold mb-2">{item.eventName}</h6>
+                  <h6 className="text-sm font-bold mb-3">{item.eventName}</h6>
                   <div className="absolute right-3.5 bottom-4">
                     <Link
                       to=""
@@ -90,14 +99,14 @@ export const ViewCustomer = () => {
                       More Details
                     </Link>
                   </div>
-                  <p className="flex items-center">
+                  <p className="flex items-center mb-1">
                     <span className="text-xs font-normal w-10">Date:</span>{" "}
                     <span className="text-xs font-bold mr-3">
-                      {item.createdAt}
+                      {moment(item.createdAt).format("LLL")}
                     </span>{" "}
-                    <span className="text-xs font-medium text-red-600 bg-red-100 px-1.5 py-1 rounded-md">
+                    {/* <span className="text-xs font-medium text-red-600 bg-red-100 px-1.5 py-1 rounded-md">
                       ({item.status})
-                    </span>
+                    </span> */}
                   </p>
                   <p className="flex items-center mb-1">
                     <span className="text-xs font-normal w-10">Cost:</span>{" "}
@@ -105,15 +114,15 @@ export const ViewCustomer = () => {
                       Rs. {item.totalAmount}/-
                     </span>
                   </p>
-                  {/* <p className="flex items-center">
-                    <span className="text-xs font-normal w-10">Paid:</span>{" "}
-                    <span className="text-xs font-medium mr-3">
-                      Rs. {item.paid}/-{" "}
-                      <b> &nbsp;(Rs. {item.pending}/- Pending)</b>
-                    </span>
-                  </p> */}
                 </div>
-              ))}
+              ))
+            ) : (
+              <div className="flex flex-col border border-slate-300 mb-10 w-full rounded-md overflow-hidden py-8 px-6">
+                <p className="text-xs font-medium text-slate-500">
+                  Data is not available
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </div>

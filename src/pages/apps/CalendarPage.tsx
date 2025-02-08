@@ -10,7 +10,7 @@ export const CalendarPage = () => {
   return (
     listEvents && (
       <>
-        <Header pagename="Collaborators" />
+        <Header pagename="Events" />
         <div className="flex w-full px-6 pt-2">
           <CustomerDataTable
             columns={eventColumns}
