@@ -41,7 +41,7 @@ export const navData = {
       color: "text-indigo-500",
     },
     {
-      title: "Calendar",
+      title: "Events",
       url: applinks.calendar,
       icon: CalendarFold,
       color: "text-indigo-500",
