@@ -7,8 +7,10 @@ import { useAuthStore } from "@/store/authStore";
 import { useProfileStore } from "@/store/profileStore";
 import { useConsumerStore } from "@/store/consumerStore";
 import { useEventStore } from "@/store/eventStore";
+import { useTransactionStore } from "@/store/billStore";
 import { myProfile, userProfiles } from "@/services/profile.services";
 import { eventLists } from "@/services/event.services";
+import { transactionLists } from "@/services/bill.services";
 import { consumerLists } from "@/services/consumer.services";
 import { applinks } from "@/router/links";
 
@@ -17,6 +19,7 @@ export const MainLayout = () => {
   const { setProfile, setListProfile } = useProfileStore();
   const { setListConsumer } = useConsumerStore();
   const { setListEvents } = useEventStore();
+  const { setListTransactions } = useTransactionStore();
 
   const { data: userProfileInformation, isSuccess: userSuccess } = useQuery({
     queryKey: ["userProfile"],
@@ -38,6 +41,11 @@ export const MainLayout = () => {
     queryFn: eventLists,
   });
 
+  const { data: listOfTransactions, isSuccess: transactionSuccess } = useQuery({
+    queryKey: ["transactionsLists"],
+    queryFn: transactionLists,
+  });
+
   useEffect(() => {
     if (isToken && isLogin) {
       if (userSuccess) {
@@ -52,6 +60,9 @@ export const MainLayout = () => {
       if (eventSuccess) {
         setListEvents(listOfEvents.event);
       }
+      if (transactionSuccess) {
+        setListTransactions(listOfTransactions.event);
+      }
     }
   }, [
     userProfileInformation,
@@ -61,13 +72,16 @@ export const MainLayout = () => {
     consumerSuccess,
     profileSuccess,
     eventSuccess,
+    transactionSuccess,
     listOfConsumer,
     listOfProfiles,
     listOfEvents,
+    listOfTransactions,
     setProfile,
     setListConsumer,
     setListProfile,
     setListEvents,
+    setListTransactions,
   ]);
 
   if (!isToken && !isLogin) {
