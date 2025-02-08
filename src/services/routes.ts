@@ -16,3 +16,7 @@ export const consumerAddService = `${v1}/consumer/new`;
 export const consumerListService = `${v1}/consumer/list`;
 export const consumerProfileService = `${v1}/consumer`;
 // export const updateProfilesService = `${v1}/profile/update-profile`;
+
+// event
+export const eventListService = `${v1}/event/list`;
+export const eventService = `${v1}/event`;
