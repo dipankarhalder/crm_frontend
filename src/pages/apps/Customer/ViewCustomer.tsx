@@ -93,7 +93,7 @@ export const ViewCustomer = () => {
                   <h6 className="text-sm font-bold mb-3">{item.eventName}</h6>
                   <div className="absolute right-3.5 bottom-4">
                     <Link
-                      to=""
+                      to={`/${params.id}/${item._id}`}
                       className="font-medium text-xs px-2 py-1 bg-blue-200 rounded-md text-blue-600 cursor-pointer hover:text-white hover:bg-blue-600 ease-in-out transition"
                     >
                       More Details

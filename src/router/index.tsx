@@ -13,6 +13,7 @@ import { CustomersPage } from "@/pages/apps/CustomersPage";
 import { ListCustomer } from "@/pages/apps/Customer/ListCustomer";
 import { AddCustomer } from "@/pages/apps/Customer/AddCustomer";
 import { ViewCustomer } from "@/pages/apps/Customer/ViewCustomer";
+import { InvoiceCustomer } from "@/pages/apps/Customer/InvoiceCustomer";
 import { VendorsPage } from "@/pages/apps/VendorsPage";
 import { CalendarPage } from "@/pages/apps/CalendarPage";
 import { BillingsPage } from "@/pages/apps/BillingsPage";
@@ -58,6 +59,10 @@ export const router = createBrowserRouter([
           {
             path: `view/${applinks.viewCustomer}`,
             element: <ViewCustomer />,
+          },
+          {
+            path: `view/${applinks.viewTransaction}`,
+            element: <InvoiceCustomer />,
           },
           {
             path: `edit/${applinks.editCustomer}`,

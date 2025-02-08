@@ -18,7 +18,7 @@ export function NavProjects({ projects }: any) {
           {projects.slice(0, 4).map((item: any) => (
             <SidebarMenuItem key={item._id}>
               <SidebarMenuButton asChild tooltip={item.name}>
-                <Link to={`view/${item._id}`}>
+                <Link to={`customers/view/${item._id}`}>
                   <Box className="text-yellow-600" />
                   <span>{item.name}</span>
                   <ChevronRight
