@@ -20,3 +20,7 @@ export const consumerProfileService = `${v1}/consumer`;
 // event
 export const eventListService = `${v1}/event/list`;
 export const eventService = `${v1}/event`;
+
+// transaction
+export const transactionListService = `${v1}/transaction/list`;
+export const transactionService = `${v1}/transaction`;
