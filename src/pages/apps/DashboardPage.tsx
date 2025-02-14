@@ -1,13 +1,10 @@
 import { Link } from "react-router-dom";
-import moment from "moment";
 import { applinks } from "@/router/links";
-import { Combine, CircleUser, CalendarFold, ChevronRight } from "lucide-react";
+import { Combine, CircleUser, CalendarFold } from "lucide-react";
 import { Header } from "@/components/elements/header";
-import { useEventStore } from "@/store/eventStore";
+import { EventList } from "@/components/elements/dashboard/EventList";
 
 export const DashboardPage = () => {
-  const { listEvents } = useEventStore();
-
   return (
     <>
       <Header pagename="Dashboard" />
@@ -50,55 +47,7 @@ export const DashboardPage = () => {
                 </ul>
               </div>
             </div>
-            <div className="w-[30%] border-l border-slate-200 pl-4">
-              <h4 className="text-md font-semibold mb-4">Coming Events List</h4>
-              <div className="flex flex-col">
-                {listEvents && (
-                  <div className="flex flex-col mb-5">
-                    <p className="text-xs font-medium text-slate-900 mb-2">
-                      25th Feb 2025
-                    </p>
-                    <div className="flex flex-col gap-3">
-                      {listEvents.map((item: any) => {
-                        const timeSec = moment(item.createdAt)
-                          .format("LT")
-                          .split(" ");
-                        return (
-                          <div
-                            className="flex border border-slate-300 p-3 rounded-md shadow items-center relative overflow-hidden"
-                            key={item._id}
-                          >
-                            <div className="flex flex-col w-[60px] h-[60px] items-center border border-slate-100 bg-slate-100 rounded-md mr-3 gap-0 overflow-hidden">
-                              <span className="font-light text-xl text-black w-full text-center py-[4px]">
-                                {timeSec[0]}
-                              </span>
-                              <span className="font-medium text-xs text-white text-center bg-red-600 w-full py-[3px]">
-                                {timeSec[1]}
-                              </span>
-                            </div>
-                            <div>
-                              <h6 className="text-sm font-semibold mb-1 text-slate-600">
-                                {item.eventName}
-                              </h6>
-                              <p className="text-xs font-medium text-slate-500">
-                                <span className="mr-3">Email:</span>
-                                <span>{item.consumer.email}</span>
-                              </p>
-                            </div>
-                            <Link
-                              to="/"
-                              className="absolute w-[50px] h-full top-0 right-0 flex items-center justify-center"
-                            >
-                              <ChevronRight />
-                            </Link>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
+            <EventList />
           </div>
         </div>
       </div>

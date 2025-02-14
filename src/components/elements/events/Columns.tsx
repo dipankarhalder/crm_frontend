@@ -52,13 +52,26 @@ export const eventColumns: ColumnDef<any>[] = [
     ),
   },
   {
-    accessorKey: "createdAt",
-    header: "Created",
+    accessorKey: "eventDate",
+    header: "Event Date",
     cell: ({ row }) => (
       <div className="capitalize font-semibold">
-        {moment(row.getValue("createdAt")).format("ll")}
+        {moment(row.getValue("eventDate")).format("LL")}
       </div>
     ),
+  },
+  {
+    header: "Event Address",
+    cell: ({ row }) => {
+      console.log(row);
+      return (
+        <div className="capitalize font-semibold">
+          {row.original.consumer.address.area},{" "}
+          {row.original.consumer.address.landmark} - &nbsp;
+          {row.original.consumer.address.pincode}
+        </div>
+      );
+    },
   },
   {
     id: "actions",
