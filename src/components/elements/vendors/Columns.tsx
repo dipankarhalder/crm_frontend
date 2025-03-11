@@ -1,18 +1,11 @@
 import { Link } from "react-router-dom";
 import moment from "moment";
 import { ColumnDef } from "@tanstack/react-table";
-import { ChevronsUpDown, Ellipsis, Eye, PenTool, Trash2 } from "lucide-react";
+import { ChevronsUpDown, Eye, PenLine, SquareArrowOutUpRight } from "lucide-react";
 import { IVendorInfo } from "@/interface";
-import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
-const colorArr = ["bg-indigo-500", "bg-rose-500", "bg-amber-500"];
+// const colorArr = ["bg-indigo-500", "bg-rose-500", "bg-amber-500"];
 
 function getInitials(name: string) {
   const words = name.split(" ");
@@ -20,10 +13,10 @@ function getInitials(name: string) {
   return initials;
 }
 
-function shuffleArray(arr: any) {
-  const randomIndex = Math.floor(Math.random() * arr.length);
-  return arr[randomIndex];
-}
+// function shuffleArray(arr: any) {
+//   const randomIndex = Math.floor(Math.random() * arr.length);
+//   return arr[randomIndex];
+// }
 
 export const vendorsColumns: ColumnDef<IVendorInfo>[] = [
   {
@@ -44,15 +37,14 @@ export const vendorsColumns: ColumnDef<IVendorInfo>[] = [
       return (
         <div className="flex items-center">
           <Avatar className="mr-3">
-            <AvatarFallback
-              className={`font-semibold text-xs text-white ${shuffleArray(
-                colorArr
-              )}`}
-            >
-              {initials}
-            </AvatarFallback>
+            <AvatarFallback className={`font-semibold text-xs text-black bg-gray-100`}>{initials}</AvatarFallback>
           </Avatar>
-          <div className="capitalize font-semibold">{row.getValue("name")}</div>
+          <div className="capitalize font-semibold">
+            <Link to={`view`} className="underline text-blue-700 flex items-center gap-2">
+              {row.getValue("name")}
+              <SquareArrowOutUpRight size={14} />
+            </Link>
+          </div>
         </div>
       );
     },
@@ -75,9 +67,7 @@ export const vendorsColumns: ColumnDef<IVendorInfo>[] = [
   {
     accessorKey: "phone",
     header: "Phone no.",
-    cell: ({ row }) => (
-      <div className="capitalize font-semibold">{row.getValue("phone")}</div>
-    ),
+    cell: ({ row }) => <div className="capitalize font-semibold">{row.getValue("phone")}</div>,
   },
   {
     accessorKey: "role",
@@ -113,49 +103,30 @@ export const vendorsColumns: ColumnDef<IVendorInfo>[] = [
   {
     accessorKey: "createdAt",
     header: "Created",
-    cell: ({ row }) => (
-      <div className="capitalize font-semibold">
-        {moment(row.getValue("createdAt")).format("ll")}
-      </div>
-    ),
+    cell: ({ row }) => <div className="capitalize font-semibold">{moment(row.getValue("createdAt")).format("ll")}</div>,
   },
   {
-    id: "actions",
-    enableHiding: false,
+    accessorKey: "actions",
+    header: "Action",
     cell: () => {
       return (
-        <div className="text-right font-medium">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="h-8 w-8 p-0">
-                <Ellipsis className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem className="flex items-center font-semibold text-xs">
-                <Link
-                  to={"/"}
-                  className="flex items-center font-semibold text-xs"
-                >
-                  <Eye className="mr-2" />
-                  View Details
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem className="flex items-center font-semibold text-xs">
-                <Link
-                  to={"/"}
-                  className="flex items-center font-semibold text-xs"
-                >
-                  <PenTool className="mr-2" />
-                  Edit Information
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem className="flex items-center font-semibold text-xs text-red-500 focus:text-red-500">
-                <Trash2 />
-                Delete Vendor
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+        <div className="font-medium">
+          <div className="font-medium flex justify-center items-center w-auto">
+            <Link
+              to={"/"}
+              className="flex items-center font-semibold text-xs mr-3 px-2 py-1 bg-gray-200 text-gray-800 rounded-md"
+            >
+              <Eye className="w-[16px] h-[16px] mr-1" />
+              <p className="text-[12px]">View</p>
+            </Link>
+            <Link
+              to={"/"}
+              className="flex items-center font-semibold text-xs mr-3 px-2 py-1 bg-blue-200 text-blue-800 rounded-md"
+            >
+              <PenLine className="w-[16px] h-[16px] mr-1" />
+              <p className="text-[12px]">Edit</p>
+            </Link>
+          </div>
         </div>
       );
     },

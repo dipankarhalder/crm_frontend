@@ -32,7 +32,11 @@ export const customerColumns: ColumnDef<IUserInfo>[] = [
       );
     },
     cell: ({ row }) => (
-      <div className="capitalize font-semibold">{row.getValue("name")}</div>
+      <div className="capitalize font-semibold">
+        <Link to={`view/${row.original._id}`} className="underline text-blue-700">
+          {row.getValue("name")}
+        </Link>
+      </div>
     ),
   },
   {
@@ -53,9 +57,7 @@ export const customerColumns: ColumnDef<IUserInfo>[] = [
   {
     accessorKey: "phone",
     header: "Phone no.",
-    cell: ({ row }) => (
-      <div className="capitalize font-semibold">{row.getValue("phone")}</div>
-    ),
+    cell: ({ row }) => <div className="capitalize font-semibold">{row.getValue("phone")}</div>,
   },
   {
     header: "Address",
@@ -69,11 +71,7 @@ export const customerColumns: ColumnDef<IUserInfo>[] = [
   {
     accessorKey: "createdAt",
     header: "Created",
-    cell: ({ row }) => (
-      <div className="capitalize font-semibold">
-        {moment(row.getValue("createdAt")).format("ll")}
-      </div>
-    ),
+    cell: ({ row }) => <div className="capitalize font-semibold">{moment(row.getValue("createdAt")).format("ll")}</div>,
   },
   {
     id: "actions",
@@ -89,19 +87,13 @@ export const customerColumns: ColumnDef<IUserInfo>[] = [
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuItem>
-                <Link
-                  to={`view/${row.original._id}`}
-                  className="flex items-center font-semibold text-xs"
-                >
+                <Link to={`view/${row.original._id}`} className="flex items-center font-semibold text-xs">
                   <Eye className="mr-2" />
                   View Details
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <Link
-                  to={`edit/${row.original._id}`}
-                  className="flex items-center font-semibold text-xs"
-                >
+                <Link to={`edit/${row.original._id}`} className="flex items-center font-semibold text-xs">
                   <PenTool className="mr-2" />
                   Edit Information
                 </Link>
