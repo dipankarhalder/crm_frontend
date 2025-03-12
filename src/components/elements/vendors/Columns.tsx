@@ -5,18 +5,11 @@ import { ChevronsUpDown, Eye, PenLine, SquareArrowOutUpRight } from "lucide-reac
 import { IVendorInfo } from "@/interface";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
-// const colorArr = ["bg-indigo-500", "bg-rose-500", "bg-amber-500"];
-
 function getInitials(name: string) {
   const words = name.split(" ");
   const initials = words.map((word) => word.charAt(0).toUpperCase()).join("");
   return initials;
 }
-
-// function shuffleArray(arr: any) {
-//   const randomIndex = Math.floor(Math.random() * arr.length);
-//   return arr[randomIndex];
-// }
 
 export const vendorsColumns: ColumnDef<IVendorInfo>[] = [
   {

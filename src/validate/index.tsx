@@ -11,8 +11,7 @@ const passwordValidate = z
     message: "Password must be at least 6 characters.",
   })
   .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/, {
-    message:
-      "Password must contain at least 1 uppercase, 1 lowercase, 1 number, and 1 special character.",
+    message: "Password must contain at least 1 uppercase, 1 lowercase, 1 number, and 1 special character.",
   });
 
 const phoneValidate = z
@@ -24,15 +23,17 @@ const phoneValidate = z
     message: "Phone number must contain only digits.",
   });
 
+const nameValidate = z.string().min(2, {
+  message: "First name must be at least 2 characters.",
+});
+
 export const SigninSchema = z.object({
   email: emailValidate,
   password: passwordValidate,
 });
 
 export const SignupSchema = z.object({
-  name: z.string().min(2, {
-    message: "First name must be at least 2 characters.",
-  }),
+  name: nameValidate,
   role: z.string().refine((role) => user_roles.includes(role), {
     message: "Invalid user role. Please select a valid role.",
   }),
@@ -43,4 +44,25 @@ export const SignupSchema = z.object({
 
 export const ForgotPasswordSchema = z.object({
   email: emailValidate,
+});
+
+export const CustomerSchema = z.object({
+  name: nameValidate,
+  email: emailValidate,
+  phone: phoneValidate,
+  area: z.string().nonempty({
+    message: "Area cannot be empty.",
+  }),
+  landmark: z.string().nonempty({
+    message: "Landmark cannot be empty.",
+  }),
+  city: z.string().nonempty({
+    message: "City cannot be empty.",
+  }),
+  state: z.string().nonempty({
+    message: "State cannot be empty.",
+  }),
+  pincode: z.string().nonempty({
+    message: "Pincode cannot be empty.",
+  }),
 });

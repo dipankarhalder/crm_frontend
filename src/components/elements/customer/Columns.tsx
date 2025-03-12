@@ -1,20 +1,19 @@
 import { Link } from "react-router-dom";
-import moment from "moment";
 import { ColumnDef } from "@tanstack/react-table";
-import { ChevronsUpDown, Ellipsis, Eye, PenTool, Trash2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { ChevronsUpDown, Eye, SquareArrowOutUpRight, PenLine } from "lucide-react";
 import { IUserInfo } from "@/interface";
-import { consumerLists, deleteConsumer } from "@/services/consumer.services.ts";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { sharedData } from "@/components/sharedData";
 
-const deleteFunc = async (delId: string) => {
-  await deleteConsumer(delId);
-  await consumerLists();
+function getInitials(name: string) {
+  const words = name.split(" ");
+  const initials = words.map((word) => word.charAt(0).toUpperCase()).join("");
+  return initials;
+}
+
+const getRandomAvatar = () => {
+  const randomIndex = Math.floor(Math.random() * sharedData.length);
+  return sharedData[randomIndex].imgUrl;
 };
 
 export const customerColumns: ColumnDef<IUserInfo>[] = [
@@ -31,13 +30,24 @@ export const customerColumns: ColumnDef<IUserInfo>[] = [
         </span>
       );
     },
-    cell: ({ row }) => (
-      <div className="capitalize font-semibold">
-        <Link to={`view/${row.original._id}`} className="underline text-blue-700">
-          {row.getValue("name")}
-        </Link>
-      </div>
-    ),
+    cell: ({ row }) => {
+      const initials = getInitials(row.getValue("name"));
+      const randomAvatarUrl = getRandomAvatar();
+      return (
+        <div className="flex items-center">
+          <Avatar className="mr-3">
+            <AvatarImage src={randomAvatarUrl} alt={initials} />
+            <AvatarFallback className={`font-semibold text-xs text-black bg-gray-100`}>{initials}</AvatarFallback>
+          </Avatar>
+          <div className="capitalize font-semibold">
+            <Link to={row.original._id} className="underline text-blue-800 flex items-center gap-2">
+              {row.getValue("name")}
+              <SquareArrowOutUpRight size={14} />
+            </Link>
+          </div>
+        </div>
+      );
+    },
   },
   {
     accessorKey: "email",
@@ -69,44 +79,28 @@ export const customerColumns: ColumnDef<IUserInfo>[] = [
     ),
   },
   {
-    accessorKey: "createdAt",
-    header: "Created",
-    cell: ({ row }) => <div className="capitalize font-semibold">{moment(row.getValue("createdAt")).format("ll")}</div>,
-  },
-  {
-    id: "actions",
-    enableHiding: false,
+    accessorKey: "actions",
+    header: "Action",
     cell: ({ row }) => {
+      const customerId = row.original._id;
       return (
         <div className="text-right font-medium">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="h-8 w-8 p-0">
-                <Ellipsis className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem>
-                <Link to={`view/${row.original._id}`} className="flex items-center font-semibold text-xs">
-                  <Eye className="mr-2" />
-                  View Details
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Link to={`edit/${row.original._id}`} className="flex items-center font-semibold text-xs">
-                  <PenTool className="mr-2" />
-                  Edit Information
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                onClick={() => deleteFunc(row.original._id)}
-                className="flex items-center font-semibold text-xs text-red-500 focus:text-red-500"
-              >
-                <Trash2 />
-                Delete Customer
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <div className="font-medium flex justify-start items-center w-auto">
+            <Link
+              to={customerId}
+              className="flex items-center font-semibold text-xs mr-3 px-2 py-1 bg-gray-200 text-gray-800 rounded-md"
+            >
+              <Eye className="w-[16px] h-[16px] mr-1" />
+              <p className="text-[12px]">View</p>
+            </Link>
+            <Link
+              to={`${customerId}/update`}
+              className="flex items-center font-semibold text-xs mr-3 px-2 py-1 bg-blue-200 text-blue-800 rounded-md"
+            >
+              <PenLine className="w-[16px] h-[16px] mr-1" />
+              <p className="text-[12px]">Edit</p>
+            </Link>
+          </div>
         </div>
       );
     },

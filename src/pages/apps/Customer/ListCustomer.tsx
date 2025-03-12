@@ -12,7 +12,7 @@ export const ListCustomer = () => {
         columns={customerColumns}
         data={listConsumer}
         heading={"Manage list of Customers"}
-        filterData={"email"}
+        filterData={"name"}
         btnText={"Add Customer"}
         btnLink={applinks.addCustomer}
       />
