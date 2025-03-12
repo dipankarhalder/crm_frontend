@@ -13,8 +13,7 @@ export const applinks = {
   // customers
   customers: "/customers",
   addCustomer: "add-customer",
-  viewCustomer: ":id",
-  editCustomer: ":id",
+  customerId: ":id",
   viewTransaction: ":id",
 
   // vendors

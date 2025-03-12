@@ -1,12 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  ChevronsRight,
-  ChevronRight,
-  ChevronLeft,
-  ChevronsLeft,
-  CirclePlus,
-} from "lucide-react";
+import { ChevronsRight, ChevronRight, ChevronLeft, ChevronsLeft, CirclePlus } from "lucide-react";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -18,14 +12,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -73,19 +60,13 @@ export function CustomerDataTable<TData, TValue>({
       <div className="flex justify-between items-center py-4 w-full">
         <h1 className="font-medium mr-8 text-base text-black">
           {heading}
-          <Badge className="ml-4 bg-slate-300 text-black">
-            {table.getFilteredRowModel().rows.length}
-          </Badge>
+          <Badge className="ml-4 bg-slate-300 text-black">{table.getFilteredRowModel().rows.length}</Badge>
         </h1>
         <div className="flex items-center">
           <Input
             placeholder={`Filter ${filterData}...`}
-            value={
-              (table.getColumn(filterData)?.getFilterValue() as string) ?? ""
-            }
-            onChange={(event) =>
-              table.getColumn("email")?.setFilterValue(event.target.value)
-            }
+            value={(table.getColumn(filterData)?.getFilterValue() as string) ?? ""}
+            onChange={(event) => table.getColumn("name")?.setFilterValue(event.target.value)}
             className="w-[460px] shadow-sm"
           />
         </div>
@@ -106,16 +87,8 @@ export function CustomerDataTable<TData, TValue>({
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead
-                      key={header.id}
-                      className="font-semibold text-sm"
-                    >
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
+                    <TableHead key={header.id} className="font-semibold text-sm">
+                      {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                     </TableHead>
                   );
                 })}
@@ -125,29 +98,17 @@ export function CustomerDataTable<TData, TValue>({
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
-                >
+                <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell
-                      key={cell.id}
-                      className="py-2 font-medium text-sm"
-                    >
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
+                    <TableCell key={cell.id} className="py-2 font-medium text-sm">
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </TableCell>
                   ))}
                 </TableRow>
               ))
             ) : (
               <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-24 text-center"
-                >
+                <TableCell colSpan={columns.length} className="h-24 text-center">
                   No results.
                 </TableCell>
               </TableRow>
@@ -157,8 +118,8 @@ export function CustomerDataTable<TData, TValue>({
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
         <div className="flex-1 text-sm text-muted-foreground">
-          {table.getFilteredSelectedRowModel().rows.length} of{" "}
-          {table.getFilteredRowModel().rows.length} row(s) selected.
+          {table.getFilteredSelectedRowModel().rows.length} of {table.getFilteredRowModel().rows.length} row(s)
+          selected.
         </div>
         <div className="flex items-center space-x-2">
           <span className="flex items-center mr-4">
@@ -177,8 +138,7 @@ export function CustomerDataTable<TData, TValue>({
           </span>
         </div>
         <div className="flex w-[100px] items-center justify-center text-sm font-medium">
-          Page {table.getState().pagination.pageIndex + 1} of{" "}
-          {table.getPageCount()}
+          Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
         </div>
         <div className="flex items-center space-x-2">
           <Button
