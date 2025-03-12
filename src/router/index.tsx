@@ -57,7 +57,7 @@ export const router = createBrowserRouter([
             element: <AddCustomer />,
           },
           {
-            path: `view/${applinks.viewCustomer}`,
+            path: applinks.customerId,
             element: <ViewCustomer />,
           },
           {
@@ -65,7 +65,7 @@ export const router = createBrowserRouter([
             element: <InvoiceCustomer />,
           },
           {
-            path: `edit/${applinks.editCustomer}`,
+            path: `${applinks.customerId}/update`,
             element: <AddCustomer />,
           },
         ],
